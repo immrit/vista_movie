@@ -35,7 +35,7 @@ class NewMovies extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DetailScreen(
                         image:
-                            'https://vista.chbk.run/api/files/${snapshot.data![index].collectionId}/${snapshot.data![index].id}/${snapshot.data![index].logo}',
+                            'https://vista.chbk.run/api/files/${snapshot.data![index].collectionId}/${snapshot.data![index].id}/${snapshot.data![index].logo}', name: snapshot.data![index].name,
                       ),
                     ));
                   },
