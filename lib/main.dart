@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vista_movie/view/BottomNavigation.dart';
 
 import 'view/HomePage.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: HomePage(),
+      home: HomeBottomNavigation(),
     );
   }
 }
