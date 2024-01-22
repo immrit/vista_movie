@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vista_movie/view/HomePage.dart';
-import 'package:vista_movie/view/Movies.dart';
+import 'package:vista_movie/view/MoviesView.dart';
+import 'package:vista_movie/view/SerchView.dart';
+import 'package:vista_movie/view/SerialsView.dart';
+import 'package:vista_movie/view/profileView.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 
@@ -26,9 +29,14 @@ class HomeBottomNavigation extends StatefulWidget {
 
 class _HomeBottomNavigationState extends State<HomeBottomNavigation> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[HomePage(), Movies()];
+
+  static List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    MoviesView(),
+    SerialView(),
+    SearchView(),
+    ProfileView()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -42,26 +50,42 @@ class _HomeBottomNavigationState extends State<HomeBottomNavigation> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'خانه',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: 'فیلم ها',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie_filter_sharp),
-            label: 'سریال ها',
-          ),
-        ],
-        backgroundColor: Colors.black.withOpacity(.8),
-        elevation: 0,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'ویترین',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.movie),
+              label: 'فیلم ها',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.movie_filter_sharp),
+              label: 'سریال ها',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'جستجو',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'پروفایل',
+            ),
+          ],
+          backgroundColor: Colors.black.withOpacity(.8),
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white24,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
