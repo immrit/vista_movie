@@ -1,18 +1,29 @@
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../pocketBase/remote_Service.dart';
+import '../../Models/DataModel.dart';
 
-class SliderClass extends StatelessWidget {
+class SliderClass extends StatefulWidget {
   SliderClass({
     super.key,
-    required this.myPocketBase,
   });
 
-  final PB_Slider myPocketBase;
+  @override
+  State<SliderClass> createState() => _SliderClassState();
+}
+
+class _SliderClassState extends State<SliderClass> {
+  var jsonList;
+
+  @override
+  void initState() {
+    super.initState();
+    getData_Slider();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,61 +32,60 @@ class SliderClass extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          height: 200,
-          child: FutureBuilder<List<RecordModel>?>(
-            future: myPocketBase.getPosts(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return PageView.builder(
-                    reverse: true,
-                    controller: controller,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            height: 200,
-                            color: Colors.white60,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  child: Image.network(
-                                    'https://vista.chbk.run/api/files/${snapshot.data![index].collectionId}/${snapshot.data![index].id}/${snapshot.data![index].logo}',
-                                    fit: BoxFit.cover,
-                                  ),
+            height: 200,
+            child: FutureBuilder(
+                future: getData_Slider(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return PageView.builder(
+                        reverse: true,
+                        controller: controller,
+                        itemCount: jsonList == null ? 0 : jsonList.length,
+                        itemBuilder: ((context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                height: 200,
+                                color: Colors.white60,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      child: Image.network(
+                                        'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.bottomRight,
+                                      padding: EdgeInsets.only(
+                                          right: 20, bottom: 20),
+                                      child: Text(
+                                        jsonList[index]['name'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 25,
+                                            backgroundColor:
+                                                Colors.grey.withOpacity(0.4),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding:
-                                      EdgeInsets.only(right: 20, bottom: 20),
-                                  child: Text(
-                                    snapshot.data![index].name,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25,
-                                        backgroundColor:
-                                            Colors.grey.withOpacity(0.4),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    }));
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              } else {
-                return Center(child: CarouselLoading());
-              }
-            },
-          ),
-        ),
+                          );
+                        }));
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return Center(child: CarouselLoading());
+                  }
+                })),
+
         //indicator
         Positioned(
           bottom: 8,
@@ -88,6 +98,26 @@ class SliderClass extends StatelessWidget {
         )
       ],
     );
+  }
+
+  getData_Slider() async {
+    try {
+      Map<String, dynamic> q = {'sort': '-updated'};
+      var response = await Dio().get(
+          'https://vista.chbk.run/api/collections/Slider/records',
+          queryParameters: q);
+      if (response.statusCode == 200) {
+        setState(() {
+          jsonList = response.data['items'] as List;
+          print(response);
+        });
+      }
+      return response.data['items']
+          .map<DataModel>((e) => DataModel.fromJson(e))
+          .toList();
+    } catch (e) {
+      print(e);
+    }
   }
 }
 

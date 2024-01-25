@@ -42,10 +42,20 @@ class DataModel {
   final String id;
   final String name;
   final String logo;
+  final String collectionId;
 
-  DataModel({required this.id, required this.name, required this.logo});
+  DataModel({
+    required this.id,
+    required this.name,
+    required this.logo,
+    required this.collectionId,
+  });
 
   factory DataModel.fromJson(Map<String, dynamic> json) {
-    return DataModel(id: json['id'], name: json['name'], logo: json['logo']);
+    return DataModel(
+        id: json['id'],
+        name: json['name'],
+        logo: json['logo'],
+        collectionId: json['collectionId']);
   }
 }

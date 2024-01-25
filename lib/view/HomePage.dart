@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hidable/hidable.dart';
-import 'package:vista_movie/view/MoviesView.dart';
+
 import '../pocketBase/remote_Service.dart';
 import 'widgets/categories.dart';
 import 'widgets/itemsScroll.dart';
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 //Slider
                 SizedBox(height: 25),
-                SliderClass(myPocketBase: myPocketBase),
+                SliderClass(),
                 SizedBox(height: 25),
                 //Category
                 Categories(

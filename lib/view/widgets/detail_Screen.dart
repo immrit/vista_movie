@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
   String image;
   String name;
+
   DetailScreen({
     Key? key,
     required this.image,
@@ -85,7 +87,18 @@ class DetailScreen extends StatelessWidget {
                         child: FloatingActionButton(
                           backgroundColor: Colors.amber,
                           onPressed: () {},
-                          child: Icon(Icons.play_arrow),
+                          tooltip: 'Launch MXPLAYER',
+                          child: const Icon(Icons.play_arrow),
+                          // onPressed: () {
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return VideoPlayerView(
+                          //           url:
+                          //               'https://tokyo.saymyname.website/Movies/2021/9363502/Last%20Night%20In%20Rozzie%202021%201080p%20WEBRip%20x264%20AAC5.1%20YIFY.mp4',
+                          //           dataSourceType: DataSourceType.network);
+                          //     },
+                          //   ));
+                          // },
                         ),
                       )
                     ],
