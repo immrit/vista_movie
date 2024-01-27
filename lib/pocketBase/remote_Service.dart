@@ -28,51 +28,51 @@
 //   }
 // }
 
-import 'package:pocketbase/pocketbase.dart';
-import 'package:vista_movie/Models/DataModel.dart';
+// import 'package:pocketbase/pocketbase.dart';
+// import 'package:vista_movie/Models/DataModel.dart';
 
-class PB_Slider {
-  Future<List<RecordModel>?>? getPosts() async {
-    final pb = PocketBase('https://vista.chbk.run');
+// class PB_Slider {
+//   Future<List<RecordModel>?>? getPosts() async {
+//     final pb = PocketBase('https://vista.chbk.run');
 
-    final records = await pb.collection('Slider').getFullList(
-          sort: '-created',
-        );
-    print(records);
-    return records;
-  }
-}
+//     final records = await pb.collection('Slider').getFullList(
+//           sort: '-created',
+//         );
+//     print(records);
+//     return records;
+//   }
+// }
 
-class PB_Categories {
-  Future<List<RecordModel>?>? getPosts_cats() async {
-    final pb = PocketBase('https://vista.chbk.run');
+// class PB_Categories {
+//   Future<List<RecordModel>?>? getPosts_cats() async {
+//     final pb = PocketBase('https://vista.chbk.run');
 
-    final records = await pb.collection('categories').getFullList(
-          sort: '-created',
-        );
-    print(records);
-    return records;
-  }
-}
+//     final records = await pb.collection('categories').getFullList(
+//           sort: '-created',
+//         );
+//     print(records);
+//     return records;
+//   }
+// }
 
-class PB_Movies {
-  Future<List<DataModel>?>? getPosts_movies() async {
-    final pb = PocketBase('https://vista.chbk.run');
+// class PB_Movies {
+//   Future<List<DataModel>?>? getPosts_movies() async {
+//     final pb = PocketBase('https://vista.chbk.run');
 
-    final records = await pb.collection('Movies').getFullList(
-          sort: '-created',
-        );
-    print(records);
-  }
-}
+//     final records = await pb.collection('Movies').getFullList(
+//           sort: '-created',
+//         );
+//     print(records);
+//   }
+// }
 
-class PB_Serials {
-  Future<List<DataModel>?>? getPosts_serials() async {
-    final pb = PocketBase('https://vista.chbk.run');
+// class PB_Serials {
+//   Future<List<DataModel>?>? getPosts_serials() async {
+//     final pb = PocketBase('https://vista.chbk.run');
 
-    final records = await pb.collection('Serials').getFullList(
-          sort: '-created',
-        );
-    print(records);
-  }
-}
+//     final records = await pb.collection('Serials').getFullList(
+//           sort: '-created',
+//         );
+//     print(records);
+//   }
+// }

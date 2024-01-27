@@ -7,10 +7,7 @@ import '../../Models/DataModel.dart';
 class Categories extends StatefulWidget {
   Categories({
     super.key,
-    required this.myCategories,
   });
-
-  final PB_Categories myCategories;
 
   @override
   State<Categories> createState() => _CategoriesState();

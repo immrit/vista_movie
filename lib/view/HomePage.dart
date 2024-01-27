@@ -8,23 +8,17 @@ import 'widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
-  static PB_Movies myMovies = PB_Movies();
-  static PB_Serials mySerials = PB_Serials();
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  PB_Slider myPocketBase = PB_Slider();
-  PB_Categories myCategories = PB_Categories();
   int curenpageIndex = 1;
   final ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    HomePage.myMovies.getPosts_movies();
-    HomePage.mySerials.getPosts_serials();
   }
 
   @override
@@ -62,19 +56,15 @@ class _HomePageState extends State<HomePage> {
                 SliderClass(),
                 SizedBox(height: 25),
                 //Category
-                Categories(
-                  myCategories: myCategories,
-                ),
+                Categories(),
                 //seeMore Movie
                 seeMore(name: 'جدیدترین فیلم ها'),
                 //Movies
-                NewMovies(myMovies: HomePage.myMovies, wi: wi, hi: hi),
+                NewMovies(wi: wi, hi: hi),
                 //seeMore Serials
                 seeMore(name: 'جدیدترین سریال ها'),
                 //Serials
-
                 NewSerials(
-                  mySerials: HomePage.mySerials,
                   wi: wi,
                   hi: hi,
                 )

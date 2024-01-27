@@ -54,6 +54,7 @@ class _MoviesViewState extends State<MoviesView> {
                         image:
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
+                        url: jsonList[index]['url'],
                       ),
                     ));
                   },

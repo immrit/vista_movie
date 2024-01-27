@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:vista_movie/view/widgets/detail_Screen.dart';
 
 import '../../Models/DataModel.dart';
-import '../../pocketBase/remote_Service.dart';
 
 class NewMovies extends StatefulWidget {
   const NewMovies({
     super.key,
-    required this.myMovies,
     required this.wi,
     required this.hi,
   });
 
-  final PB_Movies myMovies;
   final double wi;
   final double hi;
 
@@ -52,6 +49,7 @@ class _NewMoviesState extends State<NewMovies> {
                         image:
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
+                        url: jsonList[index]['url'],
                         // url: snapshot.data![index].url,
                       ),
                     ));
@@ -123,12 +121,10 @@ class _NewMoviesState extends State<NewMovies> {
 class NewSerials extends StatefulWidget {
   NewSerials({
     Key? key,
-    required this.mySerials,
     required this.wi,
     required this.hi,
   }) : super(key: key);
 
-  final PB_Serials mySerials;
   final double wi;
   final double hi;
 
@@ -167,6 +163,7 @@ class _NewSerialsState extends State<NewSerials> {
                         image:
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
+                        url: jsonList[index]['url'],
                         // url: snapshot.data![index].url,
                       ),
                     ));

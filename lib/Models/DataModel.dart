@@ -43,12 +43,14 @@ class DataModel {
   final String name;
   final String logo;
   final String collectionId;
+  final String url;
 
   DataModel({
     required this.id,
     required this.name,
     required this.logo,
     required this.collectionId,
+    required this.url,
   });
 
   factory DataModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +58,7 @@ class DataModel {
         id: json['id'],
         name: json['name'],
         logo: json['logo'],
-        collectionId: json['collectionId']);
+        collectionId: json['collectionId'],
+        url: json['url']);
   }
 }

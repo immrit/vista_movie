@@ -1,14 +1,19 @@
 import 'dart:math';
+
+import 'package:external_video_player_launcher/external_video_player_launcher.dart';
 import 'package:flutter/material.dart';
+import 'package:vista_movie/view/player.dart';
 
 class DetailScreen extends StatelessWidget {
   String image;
   String name;
+  String url;
 
   DetailScreen({
     Key? key,
     required this.image,
     required this.name,
+    required this.url,
   }) : super(key: key);
 
   @override
@@ -86,19 +91,22 @@ class DetailScreen extends StatelessWidget {
                         padding: EdgeInsets.only(right: wi * .113),
                         child: FloatingActionButton(
                           backgroundColor: Colors.amber,
-                          onPressed: () {},
-                          tooltip: 'Launch MXPLAYER',
-                          child: const Icon(Icons.play_arrow),
                           // onPressed: () {
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) {
-                          //       return VideoPlayerView(
-                          //           url:
-                          //               'https://tokyo.saymyname.website/Movies/2021/9363502/Last%20Night%20In%20Rozzie%202021%201080p%20WEBRip%20x264%20AAC5.1%20YIFY.mp4',
-                          //           dataSourceType: DataSourceType.network);
-                          //     },
+                          //   Navigator.of(context)
+                          //       .pushReplacement(MaterialPageRoute(
+                          //     builder: (context) => Player(
+                          //       url: url,
+                          //       name: name,
+                          //     ),
                           //   ));
                           // },
+                          child: const Icon(Icons.play_arrow),
+                          onPressed: () {
+                            ExternalVideoPlayerLauncher.launchOtherPlayer(
+                                url, MIME.applicationXMpegURL, {
+                              "title": name,
+                            });
+                          },
                         ),
                       )
                     ],
