@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/HomePage.dart';
-import 'package:vista_movie/view/MoviesView.dart';
-import 'package:vista_movie/view/SerchView.dart';
-import 'package:vista_movie/view/SerialsView.dart';
-import 'package:vista_movie/view/profileView.dart';
+import 'package:vista_movie/view/Screens/HomePage.dart';
+import 'package:vista_movie/view/Screens/MoviesView.dart';
+import 'package:vista_movie/view/Screens/SerchView.dart';
+import 'package:vista_movie/view/Screens/SerialsView.dart';
+import 'package:vista_movie/view/Screens/profileView.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 

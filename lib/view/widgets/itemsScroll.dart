@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/widgets/detail_Screen.dart';
+import 'package:vista_movie/view/Screens/detail_Screen.dart';
 
 import '../../Models/DataModel.dart';
 

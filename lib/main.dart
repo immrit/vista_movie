@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/BottomNavigation.dart';
+import 'package:vista_movie/view/widgets/BottomNavigation.dart';
 
-import 'view/HomePage.dart';
+import 'view/Screens/HomePage.dart';
 
 void main() {
   runApp(const MyApp());

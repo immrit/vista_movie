@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../pocketBase/remote_Service.dart';
-import 'widgets/categories.dart';
-import 'widgets/itemsScroll.dart';
-import 'widgets/slider.dart';
-import 'widgets/widgets.dart';
+import '../../pocketBase/remote_Service.dart';
+import '../widgets/categories.dart';
+import '../widgets/itemsScroll.dart';
+import '../widgets/slider.dart';
+import '../widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});

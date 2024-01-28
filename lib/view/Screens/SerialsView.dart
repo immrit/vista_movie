@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/HomePage.dart';
+import 'package:vista_movie/view/Screens/HomePage.dart';
 
-import '../Models/DataModel.dart';
-import 'widgets/detail_Screen.dart';
+import '../../Models/DataModel.dart';
+import 'detail_Screen.dart';
 
 class SerialView extends StatefulWidget {
   const SerialView({super.key});

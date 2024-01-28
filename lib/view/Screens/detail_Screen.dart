@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:external_video_player_launcher/external_video_player_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/player.dart';
+import 'package:vista_movie/view/widgets/player.dart';
 
 class DetailScreen extends StatelessWidget {
   String image;
@@ -91,22 +91,22 @@ class DetailScreen extends StatelessWidget {
                         padding: EdgeInsets.only(right: wi * .113),
                         child: FloatingActionButton(
                           backgroundColor: Colors.amber,
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //     builder: (context) => Player(
-                          //       url: url,
-                          //       name: name,
-                          //     ),
-                          //   ));
-                          // },
-                          child: const Icon(Icons.play_arrow),
                           onPressed: () {
-                            ExternalVideoPlayerLauncher.launchOtherPlayer(
-                                url, MIME.applicationXMpegURL, {
-                              "title": name,
-                            });
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => VideoPlayerScreen(
+                                url: url,
+                                name: name,
+                              ),
+                            ));
                           },
+                          child: const Icon(Icons.play_arrow),
+                          //   onPressed: () {
+                          //     ExternalVideoPlayerLauncher.launchOtherPlayer(
+                          //         url, MIME.applicationXMpegURL, {
+                          //       "title": name,
+                          //     });
+                          //   },
                         ),
                       )
                     ],

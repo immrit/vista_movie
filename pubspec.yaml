@@ -32,16 +32,19 @@ dependencies:
   chewie: ^1.7.4
   cupertino_icons: ^1.0.6
   dio: ^5.4.0
+  external_video_player_launcher: ^0.0.3
   flutter:
     sdk: flutter
   get: ^4.6.6
   get_storage: ^2.1.1
-  pocketbase: ^0.18.0
+  media_kit: ^1.1.10+1
+  media_kit_libs_video: ^1.0.4
+  media_kit_video: ^1.2.4
+  pocketbase: ^0.11.0
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.1.0
+  subtitle_wrapper_package: ^2.2.0
   video_player: ^2.8.2
-  external_video_player_launcher: ^0.0.3
-
 
 dev_dependencies:
   flutter_test:
