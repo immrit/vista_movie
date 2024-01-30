@@ -16,7 +16,7 @@ class _ProfileViewState extends State<ProfileView> {
     var hi = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("پروفایل"),
+        title: Text("حساب کاربری"),
         centerTitle: true,
         elevation: 0,
         titleTextStyle: TextStyle(color: Colors.white, fontSize: 18),

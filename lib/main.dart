@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:vista_movie/Di/di.dart';
 import 'package:vista_movie/view/widgets/BottomNavigation.dart';
 
 import 'view/Screens/HomePage.dart';
 
-void main() {
+void main() async {
+  await getItInit();
   runApp(const MyApp());
 }
 
