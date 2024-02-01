@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:external_video_player_launcher/external_video_player_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/widgets/player.dart';
-
 import 'VideoPlayer.dart';
 class DetailScreen extends StatelessWidget {
   String image;
