@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/widgets.dart';
+
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
@@ -14,7 +16,7 @@ class _ProfileViewState extends State<ProfileView> {
     var hi = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("پروفایل"),
+        title: Text("حساب کاربری"),
         centerTitle: true,
         elevation: 0,
         titleTextStyle: TextStyle(color: Colors.white, fontSize: 18),
@@ -32,10 +34,43 @@ class _ProfileViewState extends State<ProfileView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CircleAvatar(),
+                CircleAvatar(maxRadius: hi * .06),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "username",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextButton(onPressed: () {}, child: Text("ویرایش پروفایل"))
+                  ],
+                )
               ],
             ),
-          )
+          ),
+          ProfileItem(
+            name: 'حمایت مالی از ویستا مووی',
+            icon: Icons.money,
+          ),
+          ProfileItem(
+            name: 'برگزیده ها',
+            icon: Icons.favorite,
+          ),
+          ProfileItem(
+            name: 'نشان شده ها',
+            icon: Icons.bookmark,
+          ),
+          ProfileItem(
+            name: 'درخواست ها',
+            icon: Icons.list_sharp,
+          ),
+          ProfileItem(
+            name: 'درباره ما',
+            icon: Icons.info,
+          ),
         ],
       ),
     );

@@ -31,11 +31,13 @@ dependencies:
   carousel_slider: ^4.2.1
   chewie: ^1.7.4
   cupertino_icons: ^1.0.6
+  dartz: ^0.10.1
   dio: ^5.4.0
   external_video_player_launcher: ^0.0.3
   flutter:
     sdk: flutter
   get: ^4.6.6
+  get_it: ^7.6.7
   get_storage: ^2.1.1
   media_kit: ^1.1.10+1
   media_kit_libs_video: ^1.0.4

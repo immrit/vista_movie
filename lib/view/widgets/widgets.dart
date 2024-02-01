@@ -37,3 +37,37 @@ class seeMore extends StatelessWidget {
     );
   }
 }
+
+class ProfileItem extends StatelessWidget {
+  String name;
+  IconData icon;
+  ProfileItem({
+    Key? key,
+    required this.name,
+    required this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(right: 30),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+      decoration: BoxDecoration(
+          color: Colors.white12, borderRadius: BorderRadius.circular(15)),
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        Container(
+          margin: EdgeInsets.only(right: 8),
+          child: Text(name,
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+        ),
+        Icon(
+          icon,
+          color: Colors.white70,
+        )
+      ]),
+    );
+  }
+}

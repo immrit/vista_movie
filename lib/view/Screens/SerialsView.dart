@@ -14,11 +14,15 @@ class SerialView extends StatefulWidget {
 
 class _SerialViewState extends State<SerialView> {
   var jsonList;
+  bool fetchedData = false;
+
 
   @override
   void initState() {
     super.initState();
-    getData_Serials();
+    if (!fetchedData) {
+      fetchSeries();
+    }
   }
 
   @override
@@ -37,7 +41,7 @@ class _SerialViewState extends State<SerialView> {
           height: double.infinity,
           margin: EdgeInsets.only(top: hi * .05),
           child: FutureBuilder(
-            future: getData_Serials(),
+            future: Future.value(fetchedData ? jsonList : null),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GridView.builder(
@@ -57,32 +61,32 @@ class _SerialViewState extends State<SerialView> {
                                 'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                             name: jsonList[index]['name'],
                             url: jsonList[index]['url'],
+                            subtitleUrl: jsonList[index]['subtitle'],
+
                           ),
                         ));
                       },
-                      child: Expanded(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                width: wi * .3,
-                                height: hi * .2,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
-                                        fit: BoxFit.cover)),
-                              ),
-                              Text(
-                                jsonList[index]['name'],
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              )
-                            ],
-                          ),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: wi * .3,
+                              height: hi * .2,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Text(
+                              jsonList[index]['name'],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            )
+                          ],
                         ),
                       ),
                     );
@@ -98,23 +102,35 @@ class _SerialViewState extends State<SerialView> {
         ));
   }
 
-  getData_Serials() async {
-    try {
-      Map<String, dynamic> q = {'sort': '-updated'};
-      var response = await Dio().get(
-          'https://vista.chbk.run/api/collections/Serials/records',
-          queryParameters: q);
-      if (response.statusCode == 200) {
-        setState(() {
-          jsonList = response.data['items'] as List;
-          print(response);
-        });
+  Future<void> fetchSeries() async {
+    while (!fetchedData){
+      await Future.delayed(Duration(seconds: 3));
+      try {
+        print("fetching series data!!!");
+        Map<String, dynamic> q = {'sort': '-updated'};
+        BaseOptions options = new BaseOptions(
+            connectTimeout: Duration(milliseconds: 5000),
+            receiveTimeout: Duration(milliseconds: 5000)
+        );
+        Dio dio = new Dio(options);
+        var response = await dio.get(
+            'https://vista.chbk.run/api/collections/Serials/records',
+            queryParameters: q);
+        if (response.statusCode == 200) {
+          print("series data fetched!");
+          if (mounted) {
+            setState(() {
+              fetchedData = true;
+              jsonList = response.data['items'] as List;
+            });
+          }
+          break;
+        }
+        continue;
       }
-      return response.data['items']
-          .map<DataModel>((e) => DataModel.fromJson(e))
-          .toList();
-    } catch (e) {
-      print(e);
+      catch (e) {
+        print(e);
+      }
     }
   }
 }
