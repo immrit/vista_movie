@@ -18,11 +18,15 @@ class SliderClass extends StatefulWidget {
 
 class _SliderClassState extends State<SliderClass> {
   var jsonList;
+  bool fetchedData = false;
+
 
   @override
   void initState() {
     super.initState();
-    getData_Slider();
+    if (!fetchedData) {
+      fetchSlider();
+    }
   }
 
   @override
@@ -34,7 +38,7 @@ class _SliderClassState extends State<SliderClass> {
         SizedBox(
             height: 200,
             child: FutureBuilder(
-                future: getData_Slider(),
+                future: Future.value(fetchedData ? jsonList : null),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return PageView.builder(
@@ -69,7 +73,7 @@ class _SliderClassState extends State<SliderClass> {
                                             color: Colors.white,
                                             fontSize: 25,
                                             backgroundColor:
-                                                Colors.grey.withOpacity(0.4),
+                                            Colors.grey.withOpacity(0.4),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -100,23 +104,33 @@ class _SliderClassState extends State<SliderClass> {
     );
   }
 
-  getData_Slider() async {
-    try {
-      Map<String, dynamic> q = {'sort': '-updated'};
-      var response = await Dio().get(
-          'https://vista.chbk.run/api/collections/Slider/records',
-          queryParameters: q);
-      if (response.statusCode == 200) {
-        setState(() {
-          jsonList = response.data['items'] as List;
-          print(response);
-        });
+  Future<void> fetchSlider() async {
+    while (!fetchedData) {
+      await Future.delayed(Duration(seconds: 3));
+      try {
+        print("fetching Slider data!!!");
+        Map<String, dynamic> q = {'sort': '-updated'};
+        BaseOptions options = new BaseOptions(
+            connectTimeout: Duration(milliseconds: 5000),
+            receiveTimeout: Duration(milliseconds: 5000)
+        );
+        Dio dio = new Dio(options);
+        var response = await dio.get(
+            'https://vista.chbk.run/api/collections/Slider/records',
+            queryParameters: q);
+        if (response.statusCode == 200) {
+          print("Slider data fetched!");
+          setState(() {
+            fetchedData = true;
+            jsonList = response.data['items'] as List;
+          });
+          break;
+        }
+        continue;
       }
-      return response.data['items']
-          .map<DataModel>((e) => DataModel.fromJson(e))
-          .toList();
-    } catch (e) {
-      print(e);
+      catch (e) {
+        print(e);
+      }
     }
   }
 }
