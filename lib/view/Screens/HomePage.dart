@@ -51,19 +51,17 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               children: [
-                //Slider
                 SizedBox(height: 25),
                 SliderClass(),
                 SizedBox(height: 25),
-                //Category
+                // //Category
                 Categories(),
-                //seeMore Movie
                 seeMore(name: 'جدیدترین فیلم ها'),
-                //Movies
+                // //Movies
                 NewMovies(wi: wi, hi: hi),
-                //seeMore Serials
+                // //seeMore Serials
                 seeMore(name: 'جدیدترین سریال ها'),
-                //Serials
+                // //Serials
                 NewSerials(
                   wi: wi,
                   hi: hi,

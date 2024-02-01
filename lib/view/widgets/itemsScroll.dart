@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vista_movie/view/Screens/detail_Screen.dart';
-
 import '../../Models/DataModel.dart';
 
 class NewMovies extends StatefulWidget {
@@ -20,11 +21,25 @@ class NewMovies extends StatefulWidget {
 
 class _NewMoviesState extends State<NewMovies> {
   var jsonList;
+  bool isConnected = false;
+  bool fetchedData = false;
+
 
   @override
   void initState() {
     super.initState();
-    getData_itemScroll_Movies();
+    // Connectivity().checkConnectivity().then((result) {
+    //   setState(() {
+    //     isConnected = result != ConnectivityResult.none;
+    //   });
+    //   if (isConnected) {
+    //     FetchMovies();
+    //   }
+    // });
+    if (!fetchedData) {
+      fetchMovies();
+    }
+
   }
 
   @override
@@ -33,7 +48,7 @@ class _NewMoviesState extends State<NewMovies> {
       width: double.infinity,
       height: widget.hi * .28,
       child: FutureBuilder(
-        future: getData_itemScroll_Movies(),
+        future:  Future.value(fetchedData ? jsonList : null),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -44,44 +59,44 @@ class _NewMoviesState extends State<NewMovies> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
+
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DetailScreen(
                         image:
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
                         url: jsonList[index]['url'],
+                        subtitleUrl: jsonList[index]['subtitle'],
                         // url: snapshot.data![index].url,
                       ),
                     ));
                   },
-                  child: Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          right: index == 0 ? 28 : 10,
-                          left: 5,
-                          top: 5,
-                          bottom: 5),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: widget.wi * .3,
-                            height: widget.hi * .23,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
-                                    fit: BoxFit.cover)),
-                          ),
-                          Text(
-                            jsonList[index]['name'],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          )
-                        ],
-                      ),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        right: index == 0 ? 28 : 10,
+                        left: 5,
+                        top: 5,
+                        bottom: 5),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: widget.wi * .3,
+                          height: widget.hi * .23,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Text(
+                          jsonList[index]['name'],
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        )
+                      ],
                     ),
                   ),
                 );
@@ -97,27 +112,36 @@ class _NewMoviesState extends State<NewMovies> {
     );
   }
 
-  getData_itemScroll_Movies() async {
+  Future<void> fetchMovies() async {
+    while (!fetchedData){
+      await Future.delayed(Duration(seconds: 3));
     try {
+      print("fetching movies data!!!");
       Map<String, dynamic> q = {'sort': '-updated'};
-      var response = await Dio().get(
+      BaseOptions options = new BaseOptions(
+        connectTimeout: Duration(milliseconds: 5000),
+        receiveTimeout: Duration(milliseconds: 5000)
+      );
+      Dio dio = new Dio(options);
+      var response = await dio.get(
           'https://vista.chbk.run/api/collections/Movies/records',
           queryParameters: q);
       if (response.statusCode == 200) {
+        print("movie data fetched!");
         setState(() {
+          fetchedData = true;
           jsonList = response.data['items'] as List;
-          print(response);
         });
+        break;
       }
-      return response.data['items']
-          .map<DataModel>((e) => DataModel.fromJson(e))
-          .toList();
-    } catch (e) {
+      continue;
+    }
+    catch (e) {
       print(e);
     }
   }
+  }
 }
-
 class NewSerials extends StatefulWidget {
   NewSerials({
     Key? key,
@@ -134,12 +158,16 @@ class NewSerials extends StatefulWidget {
 
 class _NewSerialsState extends State<NewSerials> {
   var jsonList;
+  bool fetchedData = false;
+
 
   @override
   void initState() {
     super.initState();
-    getData_itemScroll_Serials();
-  }
+    if (!fetchedData) {
+      fetchSeries();
+    }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +175,7 @@ class _NewSerialsState extends State<NewSerials> {
       width: double.infinity,
       height: widget.hi * .28,
       child: FutureBuilder(
-        future: getData_itemScroll_Serials(),
+        future: Future.value(fetchedData ? jsonList : null),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -164,38 +192,38 @@ class _NewSerialsState extends State<NewSerials> {
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
                         url: jsonList[index]['url'],
+                        subtitleUrl: jsonList[index]['subtitle'],
+
                         // url: snapshot.data![index].url,
                       ),
                     ));
                   },
-                  child: Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          right: index == 0 ? 28 : 10,
-                          left: 5,
-                          top: 5,
-                          bottom: 5),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: widget.wi * .3,
-                            height: widget.hi * .23,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
-                                    fit: BoxFit.cover)),
-                          ),
-                          Text(
-                            jsonList[index]['name'],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          )
-                        ],
-                      ),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        right: index == 0 ? 28 : 10,
+                        left: 5,
+                        top: 5,
+                        bottom: 5),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: widget.wi * .3,
+                          height: widget.hi * .23,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Text(
+                          jsonList[index]['name'],
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        )
+                      ],
                     ),
                   ),
                 );
@@ -211,23 +239,33 @@ class _NewSerialsState extends State<NewSerials> {
     );
   }
 
-  getData_itemScroll_Serials() async {
-    try {
-      Map<String, dynamic> q = {'sort': '-updated'};
-      var response = await Dio().get(
-          'https://vista.chbk.run/api/collections/Serials/records',
-          queryParameters: q);
-      if (response.statusCode == 200) {
-        setState(() {
-          jsonList = response.data['items'] as List;
-          print(response);
-        });
+  Future<void> fetchSeries() async {
+    while (!fetchedData){
+      await Future.delayed(Duration(seconds: 3));
+      try {
+        print("fetching series data!!!");
+        Map<String, dynamic> q = {'sort': '-updated'};
+        BaseOptions options = new BaseOptions(
+            connectTimeout: Duration(milliseconds: 5000),
+            receiveTimeout: Duration(milliseconds: 5000)
+        );
+        Dio dio = new Dio(options);
+        var response = await dio.get(
+            'https://vista.chbk.run/api/collections/Serials/records',
+            queryParameters: q);
+        if (response.statusCode == 200) {
+          print("series data fetched!");
+          setState(() {
+            fetchedData = true;
+            jsonList = response.data['items'] as List;
+          });
+          break;
+        }
+        continue;
       }
-      return response.data['items']
-          .map<DataModel>((e) => DataModel.fromJson(e))
-          .toList();
-    } catch (e) {
-      print(e);
+      catch (e) {
+        print(e);
+      }
     }
   }
 }
