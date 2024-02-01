@@ -15,11 +15,13 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   var jsonList;
-
+  bool fetchedData = false;
   @override
   void initState() {
     super.initState();
-    getData_Cat();
+    if (!fetchedData) {
+      fetchCategories();
+    }
   }
 
   @override
@@ -82,24 +84,33 @@ class _CategoriesState extends State<Categories> {
               );
             }));
   }
-
-  getData_Cat() async {
-    try {
-      Map<String, dynamic> q = {'sort': '-updated'};
-      var response = await Dio().get(
-          'https://vista.chbk.run/api/collections/categories/records',
-          queryParameters: q);
-      if (response.statusCode == 200) {
-        setState(() {
-          jsonList = response.data['items'] as List;
-          print(response);
-        });
+  Future<void> fetchCategories() async {
+    while (!fetchedData){
+      await Future.delayed(Duration(seconds: 3));
+      try {
+        print("fetching categories data!!!");
+        Map<String, dynamic> q = {'sort': '-updated'};
+        BaseOptions options = new BaseOptions(
+            connectTimeout: Duration(milliseconds: 5000),
+            receiveTimeout: Duration(milliseconds: 5000)
+        );
+        Dio dio = new Dio(options);
+        var response = await dio.get(
+            'https://vista.chbk.run/api/collections/categories/records',
+            queryParameters: q);
+        if (response.statusCode == 200) {
+          print("categories data fetched!");
+          setState(() {
+            fetchedData = true;
+            jsonList = response.data['items'] as List;
+          });
+          break;
+        }
+        continue;
       }
-      return response.data['items']
-          .map<DataModel>((e) => DataModel.fromJson(e))
-          .toList();
-    } catch (e) {
-      print(e);
+      catch (e) {
+        print(e);
+      }
     }
   }
 }

@@ -1,21 +1,21 @@
 import 'dart:math';
-
 import 'package:external_video_player_launcher/external_video_player_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:vista_movie/view/widgets/player.dart';
 
+import 'VideoPlayer.dart';
 class DetailScreen extends StatelessWidget {
   String image;
   String name;
   String url;
-
+  String subtitleUrl;
   DetailScreen({
     Key? key,
     required this.image,
     required this.name,
     required this.url,
+    required this.subtitleUrl
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     var wi = MediaQuery.of(context).size.width;
@@ -95,12 +95,14 @@ class DetailScreen extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                               builder: (context) => VideoPlayerScreen(
-                                url: url,
-                                name: name,
+                                videoUrl: url,
+                                subtitleUrl: subtitleUrl,
+
                               ),
                             ));
                           },
                           child: const Icon(Icons.play_arrow),
+                          
                           //   onPressed: () {
                           //     ExternalVideoPlayerLauncher.launchOtherPlayer(
                           //         url, MIME.applicationXMpegURL, {
