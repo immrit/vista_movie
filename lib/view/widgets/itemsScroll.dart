@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vista_movie/view/Screens/detail_Screen.dart';
-import 'package:connectivity/connectivity.dart';
 import '../../Models/DataModel.dart';
 
 class NewMovies extends StatefulWidget {
