@@ -1,11 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:vista_movie/Di/di.dart';
 
-class AuthenticationRemote {
+abstract class IAuthanticationDataSource {
+  Future<void> register(
+      String username, String password, String passwordConfirm, String email);
+}
+
+class AuthenticationRemote implements IAuthanticationDataSource {
   final Dio _dio = locator.get();
 
-  Future<void> register(String username, String email, String password,
-      String passwordConfirm) async {
+  @override
+  Future<void> register(String username, String password,
+      String passwordConfirm, String email) async {
     try {
       final response = await _dio.post('collections/users/records', data: {
         'username': username,

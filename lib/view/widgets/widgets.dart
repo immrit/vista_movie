@@ -72,22 +72,21 @@ class ProfileItem extends StatelessWidget {
   }
 }
 
-Widget LoginRegisterTextField(
-  TextEditingController controller,
-  String hint,
-  IconData icon,
-) {
-  return TextField(
-    style: TextStyle(color: Colors.white70),
-    controller: controller,
-    decoration: InputDecoration(
-      hintText: hint,
-      hintStyle: TextStyle(
-        color: Colors.white54,
-      ),
-      prefixIcon: Icon(icon),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+Widget itemListFormLoginAndRegister(
+    String nameField, IconData icon, TextEditingController controller) {
+  return Directionality(
+    textDirection: TextDirection.rtl,
+    child: TextField(
+      controller: controller,
+      textAlign: TextAlign.right,
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        hintText: nameField,
+        hintStyle: TextStyle(color: Colors.white60),
+        prefixIcon: Icon(icon, color: Colors.white60),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     ),
   );
