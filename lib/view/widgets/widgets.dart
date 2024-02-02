@@ -72,13 +72,19 @@ class ProfileItem extends StatelessWidget {
   }
 }
 
-Widget itemListFormLoginAndRegister(
-    String nameField, IconData icon, TextEditingController controller) {
+Widget LoginRegisterTextField(
+    String nameField,
+    IconData icon,
+    TextEditingController controller,
+    TextInputType textInputType,
+    bool obscureText) {
   return Directionality(
     textDirection: TextDirection.rtl,
     child: TextField(
       controller: controller,
       textAlign: TextAlign.right,
+      obscureText: obscureText,
+      keyboardType: textInputType,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         hintText: nameField,

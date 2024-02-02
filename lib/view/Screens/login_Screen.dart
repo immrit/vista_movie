@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/Screens/signup_Screen.dart';
+import 'package:vista_movie/view/Screens/signup.dart';
 import 'package:vista_movie/view/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -44,11 +44,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
-                LoginRegisterTextField(
-                    _usernameController, 'نام کاربری', Icons.person),
+                LoginRegisterTextField('نام کاربری', Icons.person,
+                    _usernameController, TextInputType.name, false),
                 const SizedBox(height: 10),
-                LoginRegisterTextField(
-                    _passwordController, 'رمز عبور', Icons.lock),
+                LoginRegisterTextField('رمز عبور', Icons.lock,
+                    _passwordController, TextInputType.visiblePassword, true),
                 const SizedBox(height: 20),
                 Container(
                   width: double.infinity,
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             shadowColor: Colors.transparent),
                         onPressed: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpScreen(),
+                              builder: (context) => SignUpPage(),
                             )),
                         child: Text("ایجاد کنید"))
                   ],
