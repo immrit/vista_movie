@@ -4,7 +4,7 @@ import 'package:vista_movie/view/Screens/MoviesView.dart';
 import 'package:vista_movie/view/Screens/SerchView.dart';
 import 'package:vista_movie/view/Screens/SerialsView.dart';
 import 'package:vista_movie/view/Screens/register_and_login.dart';
-import 'package:vista_movie/view/Screens/signup.dart';
+import 'package:vista_movie/view/Screens/signup_Screen.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 
@@ -36,7 +36,7 @@ class _HomeBottomNavigationState extends State<HomeBottomNavigation> {
     MoviesView(),
     SerialView(),
     SearchView(),
-    SignUpPage()
+    SignUpScreen()
   ];
 
   void _onItemTapped(int index) {

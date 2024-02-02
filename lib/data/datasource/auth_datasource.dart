@@ -4,11 +4,12 @@ import 'package:vista_movie/Di/di.dart';
 class AuthenticationRemote {
   final Dio _dio = locator.get();
 
-  Future<void> register(
-      String username, String password, String passwordConfirm) async {
+  Future<void> register(String username, String email, String password,
+      String passwordConfirm) async {
     try {
       final response = await _dio.post('collections/users/records', data: {
         'username': username,
+        'email': email,
         'password': password,
         'passwordConfirm': passwordConfirm,
       });

@@ -71,3 +71,24 @@ class ProfileItem extends StatelessWidget {
     );
   }
 }
+
+Widget LoginRegisterTextField(
+  TextEditingController controller,
+  String hint,
+  IconData icon,
+) {
+  return TextField(
+    style: TextStyle(color: Colors.white70),
+    controller: controller,
+    decoration: InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(
+        color: Colors.white54,
+      ),
+      prefixIcon: Icon(icon),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+  );
+}
