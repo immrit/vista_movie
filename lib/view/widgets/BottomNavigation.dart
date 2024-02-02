@@ -36,7 +36,11 @@ class _HomeBottomNavigationState extends State<HomeBottomNavigation> {
     MoviesView(),
     SerialView(),
     SearchView(),
+<<<<<<< Updated upstream
     SignUpPage()
+=======
+    SignupScreen()
+>>>>>>> Stashed changes
   ];
 
   void _onItemTapped(int index) {
