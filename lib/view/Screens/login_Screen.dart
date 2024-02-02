@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/Screens/login_Screen.dart';
+import 'package:vista_movie/view/Screens/signup.dart';
+import 'package:vista_movie/view/widgets/widgets.dart';
 
-import '../widgets/widgets.dart';
-
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
-  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
   bool _isSubmitting = false;
-
-  void _signUp() {
-    // TODO: Implement sign up logic
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,36 +37,26 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 Text(
-                  "ایجاد حساب کاربری جدید",
+                  "ورود به حساب کاربری",
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
+                      fontSize: 16,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
                 LoginRegisterTextField('نام کاربری', Icons.person,
                     _usernameController, TextInputType.name, false),
                 const SizedBox(height: 10),
-                LoginRegisterTextField('ایمیل', Icons.email, _emailController,
-                    TextInputType.emailAddress, false),
-                const SizedBox(height: 10),
                 LoginRegisterTextField('رمز عبور', Icons.lock,
                     _passwordController, TextInputType.visiblePassword, true),
-                const SizedBox(height: 10),
-                LoginRegisterTextField(
-                    'تکرار رمزعبور',
-                    Icons.lock,
-                    _confirmPasswordController,
-                    TextInputType.visiblePassword,
-                    true),
                 const SizedBox(height: 20),
                 Container(
                   width: double.infinity,
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: _isSubmitting ? null : _signUp,
+                    onPressed: () {},
                     child: Text(
-                      "ثبت نام",
+                      "ورود",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -88,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'حساب کاربری دارید؟',
+                      'حساب کاربری ندارید؟',
                       style: TextStyle(color: Colors.white70),
                     ),
                     TextButton(
@@ -96,9 +80,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             shadowColor: Colors.transparent),
                         onPressed: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
+                              builder: (context) => SignUpPage(),
                             )),
-                        child: Text("وارد شوید"))
+                        child: Text("ایجاد کنید"))
                   ],
                 )
               ],

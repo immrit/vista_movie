@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       locale: Locale('fa', 'IR'),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
+          seedColor: Colors.amber.shade400,
         ),
         useMaterial3: true,
       ),
