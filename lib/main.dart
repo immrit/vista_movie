@@ -7,7 +7,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'view/Screens/HomePage.dart';
 
-void main() {
+void main() async {
+  await getItInit();
   runApp(const MyApp());
 }
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Vista Movies',
       locale: Locale('fa', 'IR'),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

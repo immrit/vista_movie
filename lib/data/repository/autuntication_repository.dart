@@ -9,7 +9,8 @@ class AutunticationRepository {
 
   Future<Either<String, String>> register() async {
     try {
-      await _datasource.register('username', 'password', 'password', 'email');
+      await _datasource.register(
+          'username', 'password', 'password', 'email@g.co');
       return right('ثبت نام انجام شد!');
     } on ApiExeption catch (e) {
       return left(e.message ?? "خطا محتوا در دسترس نیست");
