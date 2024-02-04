@@ -12,5 +12,6 @@ Future<void> getItInit() async {
 
 //datasources
 
-  locator.registerFactory<AuthenticationRemote>(() => AuthenticationRemote());
+  locator
+      .registerFactory<IAuthanticationDataSource>(() => AuthenticationRemote());
 }
