@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vista_movie/data/datasource/auth_datasource.dart';
@@ -12,5 +10,6 @@ Future<void> getItInit() async {
 
 //datasources
 
-  locator.registerFactory<AuthenticationRemote>(() => AuthenticationRemote());
+  locator
+      .registerFactory<IAuthanticationDataSource>(() => AuthenticationRemote());
 }

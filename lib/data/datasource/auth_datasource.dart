@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:vista_movie/Di/di.dart';
+import 'package:vista_movie/util/api_exeption.dart';
 
 abstract class IAuthanticationDataSource {
   Future<void> register(
@@ -22,8 +23,9 @@ class AuthenticationRemote implements IAuthanticationDataSource {
 
       print('${response.statusCode}');
     } on DioException catch (ex) {
-      print(ex.message);
-      print(ex.response!.data['message']);
-    } catch (ex) {}
+      throw ApiExeption(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw ApiExeption(0, 'unknown error');
+    }
   }
 }
