@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vista_movie/data/datasource/auth_datasource.dart';
+import 'package:vista_movie/data/repository/autuntication_repository.dart';
 import 'package:vista_movie/view/Screens/login_Screen.dart';
 
 import '../widgets/widgets.dart';
@@ -70,7 +72,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: _isSubmitting ? null : _signUp,
+                    onPressed: () async {
+                      var either = await AutunticationRepository().register();
+                      either.fold((err) {
+                        print(err);
+                      }, (succ) {
+                        print('succ');
+                      });
+                      // AuthenticationRemote().register(
+                      //     _usernameController.text,
+                      //     _passwordController.text,
+                      //     _confirmPasswordController.text,
+                      //     _emailController.text);
+                    },
                     child: Text(
                       "ثبت نام",
                       style: TextStyle(

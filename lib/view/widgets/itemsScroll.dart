@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vista_movie/view/Screens/detail_Screen.dart';
+import '../../Di/di.dart';
 import '../../Models/DataModel.dart';
 
 class NewMovies extends StatefulWidget {
@@ -24,7 +25,6 @@ class _NewMoviesState extends State<NewMovies> {
   bool isConnected = false;
   bool fetchedData = false;
 
-
   @override
   void initState() {
     super.initState();
@@ -39,7 +39,6 @@ class _NewMoviesState extends State<NewMovies> {
     if (!fetchedData) {
       fetchMovies();
     }
-
   }
 
   @override
@@ -48,7 +47,7 @@ class _NewMoviesState extends State<NewMovies> {
       width: double.infinity,
       height: widget.hi * .28,
       child: FutureBuilder(
-        future:  Future.value(fetchedData ? jsonList : null),
+        future: Future.value(fetchedData ? jsonList : null),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -59,7 +58,6 @@ class _NewMoviesState extends State<NewMovies> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DetailScreen(
                         image:
@@ -113,35 +111,34 @@ class _NewMoviesState extends State<NewMovies> {
   }
 
   Future<void> fetchMovies() async {
-    while (!fetchedData){
+    while (!fetchedData) {
       await Future.delayed(Duration(seconds: 3));
-    try {
-      print("fetching movies data!!!");
-      Map<String, dynamic> q = {'sort': '-updated'};
-      BaseOptions options = new BaseOptions(
-        connectTimeout: Duration(milliseconds: 5000),
-        receiveTimeout: Duration(milliseconds: 5000)
-      );
-      Dio dio = new Dio(options);
-      var response = await dio.get(
-          'https://vista.chbk.run/api/collections/Movies/records',
-          queryParameters: q);
-      if (response.statusCode == 200) {
-        print("movie data fetched!");
-        setState(() {
-          fetchedData = true;
-          jsonList = response.data['items'] as List;
-        });
-        break;
+      try {
+        print("fetching movies data!!!");
+        Map<String, dynamic> q = {'sort': '-updated'};
+        BaseOptions options = new BaseOptions(
+            connectTimeout: Duration(milliseconds: 5000),
+            receiveTimeout: Duration(milliseconds: 5000));
+        Dio dio = new Dio(options);
+        var response = await dio.get(
+            'https://vista.chbk.run/api/collections/Movies/records',
+            queryParameters: q);
+        if (response.statusCode == 200) {
+          print("movie data fetched!");
+          setState(() {
+            fetchedData = true;
+            jsonList = response.data['items'] as List;
+          });
+          break;
+        }
+        continue;
+      } catch (e) {
+        print(e);
       }
-      continue;
     }
-    catch (e) {
-      print(e);
-    }
-  }
   }
 }
+
 class NewSerials extends StatefulWidget {
   NewSerials({
     Key? key,
@@ -160,14 +157,13 @@ class _NewSerialsState extends State<NewSerials> {
   var jsonList;
   bool fetchedData = false;
 
-
   @override
   void initState() {
     super.initState();
     if (!fetchedData) {
       fetchSeries();
     }
-   }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,19 +236,18 @@ class _NewSerialsState extends State<NewSerials> {
   }
 
   Future<void> fetchSeries() async {
-    while (!fetchedData){
+    while (!fetchedData) {
       await Future.delayed(Duration(seconds: 3));
       try {
         print("fetching series data!!!");
         Map<String, dynamic> q = {'sort': '-updated'};
         BaseOptions options = new BaseOptions(
             connectTimeout: Duration(milliseconds: 5000),
-            receiveTimeout: Duration(milliseconds: 5000)
-        );
-        Dio dio = new Dio(options);
-        var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Serials/records',
-            queryParameters: q);
+            receiveTimeout: Duration(milliseconds: 5000));
+        // Dio dio = new Dio(options);
+        final Dio _dio = locator.get();
+        var response =
+            await _dio.get('collections/Serials/records', queryParameters: q);
         if (response.statusCode == 200) {
           print("series data fetched!");
           setState(() {
@@ -262,8 +257,7 @@ class _NewSerialsState extends State<NewSerials> {
           break;
         }
         continue;
-      }
-      catch (e) {
+      } catch (e) {
         print(e);
       }
     }
