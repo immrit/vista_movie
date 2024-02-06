@@ -6,10 +6,6 @@ import 'Models/DataModel.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'view/Screens/HomePage.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 void main() async {
   await getItInit();
   runApp(const MyApp());
@@ -33,3 +29,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

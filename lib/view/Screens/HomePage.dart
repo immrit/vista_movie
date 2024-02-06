@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../pocketBase/remote_Service.dart';
 import '../widgets/categories.dart';
-import '../widgets/itemsScroll.dart';
+import '../widgets/itemScroll.dart';
 import '../widgets/slider.dart';
 import '../widgets/widgets.dart';
 
@@ -54,18 +54,18 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 25),
                 SliderClass(),
                 SizedBox(height: 25),
-                // //Category
-                Categories(),
-                seeMore(name: 'جدیدترین فیلم ها'),
-                // //Movies
-                NewMovies(wi: wi, hi: hi),
-                // //seeMore Serials
-                seeMore(name: 'جدیدترین سریال ها'),
+                // // // //Category
+                // Categories(),
+                seeMore(name: 'Action'),
+                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "action"),
+                seeMore(name: 'Drama'),
+                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "drama"),
+                seeMore(name: 'fantasy'),
+                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "fantasy"),
+                // // //seeMore Serials
+                // seeMore(name: 'جدیدترین سریال ها'),
                 // //Serials
-                NewSerials(
-                  wi: wi,
-                  hi: hi,
-                )
+
               ],
             ),
           ],

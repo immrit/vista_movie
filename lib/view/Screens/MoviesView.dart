@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
@@ -49,18 +51,23 @@ class _MoviesViewState extends State<MoviesView> {
               itemCount: jsonList == null ? 0 : jsonList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailScreen(
-                        image:
-                            'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
-                        name: jsonList[index]['name'],
-                        url: jsonList[index]['url'],
-                        subtitleUrl: jsonList[index]['subtitle'],
+                   onTap:
+                   some
 
-                      ),
-                    ));
-                  },
+                  // () {
+                  //
+                  //   Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => DetailScreen(
+                  //       image:
+                  //           'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
+                  //       name: jsonList[index]['name'],
+                  //       url: jsonList[index]['url'],
+                  //       subtitleUrl: jsonList[index]['subtitle'],
+                  //
+                  //     ),
+                  //   ));
+                  // }
+                   ,
                   child: Container(
                     child: Column(
                       children: [
@@ -88,6 +95,30 @@ class _MoviesViewState extends State<MoviesView> {
               },
             )));
   }
+  void some()async {
+      try {
+        print("===================================================================================");
+        final pb = PocketBase('https://vvista.chbk.run');
+          final resultList = await pb.collection('Series').getFullList(
+              filter: 'gener ~ "action"'
+
+          );
+        if (!resultList.isNull) {
+          print("!!! DATA FETCHED !!! =++      ${resultList}" );
+          print("===================================================================================");
+
+        }
+      }
+      catch (e) {
+        print(e);
+        print("===================================================================================");
+
+
+      }
+  }
+
+
+
 
   Future<void> fetchMovies() async {
     while (!fetchedData){
@@ -104,7 +135,7 @@ class _MoviesViewState extends State<MoviesView> {
             'https://vista.chbk.run/api/collections/Movies/records',
             queryParameters: q);
         if (response.statusCode == 200) {
-          print("movie data fetched!");
+          // print("movie data fetched! ${response.data['items']}" );
           if (mounted) {
             setState(() {
               fetchedData = true;
@@ -119,5 +150,6 @@ class _MoviesViewState extends State<MoviesView> {
         print(e);
       }
     }
+
   }
 }
