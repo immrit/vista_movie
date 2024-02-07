@@ -99,7 +99,7 @@ class _MoviesViewState extends State<MoviesView> {
     try {
       print(
           "===================================================================================");
-      final pb = PocketBase('https://vvista.chbk.run');
+      final pb = PocketBase('https://vista.chbk.run');
       final resultList =
           await pb.collection('Series').getFullList(filter: 'gener ~ "action"');
       if (!resultList.isNull) {

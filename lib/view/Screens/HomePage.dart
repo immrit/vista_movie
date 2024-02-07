@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../../pocketBase/remote_Service.dart';
-import '../widgets/categories.dart';
+import '../widgets/categories_Home_Screen.dart';
 import '../widgets/itemScroll.dart';
 import '../widgets/slider.dart';
 import '../widgets/widgets.dart';
-import 'Category_Screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -53,22 +53,41 @@ class _HomePageState extends State<HomePage> {
               children: [
                 SizedBox(height: 25),
                 SliderClass(),
-                // SizedBox(height: 25),
-                // //Category
+           //Category
                 seeMore(
-                  name: 'دسته بندی ها',
-                  ontap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CategoryScreen(),
-                    ));
-                  },
+                  name: 'ژانرها',
+                  ontap: () {},
                 ),
-                Categories(),
-                seeMore(name: 'جدیدترین فیلم ها', ontap: () {}),
-                // //Movies
-                NewMovies(wi: wi, hi: hi),
-                // //seeMore Serials
-                seeMore(name: 'جدیدترین سریال ها', ontap: () {}),
+               CategoriesHomeScreen(),
+                seeMore(
+                  name: 'اکشن',
+                  ontap: () {},
+                ),
+                Genre(
+                    wi: wi,
+                    hi: hi,
+                    collectionName: 'movies',
+                    genreName: "action"),
+                seeMore(
+                  name: 'درام',
+                  ontap: () {},
+                ),
+                Genre(
+                    wi: wi,
+                    hi: hi,
+                    collectionName: 'movies',
+                    genreName: "drama"),
+                seeMore(
+                  name: 'فانتزی',
+                  ontap: () {},
+                ),
+                Genre(
+                    wi: wi,
+                    hi: hi,
+                    collectionName: 'movies',
+                    genreName: "fantasy"),
+                // // //seeMore Serials
+                // seeMore(name: 'جدیدترین سریال ها'),
                 // //Serials
               ],
             ),
