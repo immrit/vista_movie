@@ -64,7 +64,7 @@ class _NewMoviesState extends State<NewMovies> {
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
                         url: jsonList[index]['url'],
-                        subtitleUrl: jsonList[index]['subtitle'],
+                        subtitleUrl: jsonList[index]['subtitle'], cats: jsonList[index]['expand_cats'],
                         // url: snapshot.data![index].url,
                       ),
                     ));
@@ -121,7 +121,7 @@ class _NewMoviesState extends State<NewMovies> {
             receiveTimeout: Duration(milliseconds: 5000));
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Movies/records',
+            'https://vista.chbk.run/api/collections/movies/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("movie data fetched!");
@@ -184,6 +184,8 @@ class _NewSerialsState extends State<NewSerials> {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DetailScreen(
+                        cats: jsonList[index]['expand_cats'],
+
                         image:
                             'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                         name: jsonList[index]['name'],
@@ -247,7 +249,7 @@ class _NewSerialsState extends State<NewSerials> {
         // Dio dio = new Dio(options);
         final Dio _dio = locator.get();
         var response =
-            await _dio.get('collections/Serials/records', queryParameters: q);
+            await _dio.get('collections/series/records', queryParameters: q);
         if (response.statusCode == 200) {
           print("series data fetched!");
           setState(() {

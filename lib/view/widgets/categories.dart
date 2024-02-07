@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:vista_movie/pocketBase/remote_Service.dart';
 
+import '../../Di/di.dart';
 import '../../Models/DataModel.dart';
 
 class Categories extends StatefulWidget {
@@ -84,19 +85,20 @@ class _CategoriesState extends State<Categories> {
               );
             }));
   }
+
   Future<void> fetchCategories() async {
-    while (!fetchedData){
+    while (!fetchedData) {
       await Future.delayed(Duration(seconds: 3));
       try {
         print("fetching categories data!!!");
         Map<String, dynamic> q = {'sort': '-updated'};
         BaseOptions options = new BaseOptions(
             connectTimeout: Duration(milliseconds: 5000),
-            receiveTimeout: Duration(milliseconds: 5000)
-        );
-        Dio dio = new Dio(options);
-        var response = await dio.get(
-            'https://vista.chbk.run/api/collections/categories/records',
+            receiveTimeout: Duration(milliseconds: 5000));
+        // Dio dio = new Dio(options);
+        final Dio _dio = locator.get();
+
+        var response = await _dio.get('collections/categories/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("categories data fetched!");
@@ -107,8 +109,7 @@ class _CategoriesState extends State<Categories> {
           break;
         }
         continue;
-      }
-      catch (e) {
+      } catch (e) {
         print(e);
       }
     }

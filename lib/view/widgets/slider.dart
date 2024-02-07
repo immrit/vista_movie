@@ -116,7 +116,7 @@ class _SliderClassState extends State<SliderClass> {
         );
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Slider/records',
+            'https://vista.chbk.run/api/collections/sliders/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("Slider data fetched!");

@@ -31,6 +31,7 @@ dependencies:
   carousel_slider: ^4.2.1
   chewie: ^1.7.4
   cupertino_icons: ^1.0.6
+  custom_sliding_segmented_control: ^1.8.1
   dartz: ^0.10.1
   dio: ^5.4.0
   external_video_player_launcher: ^0.0.3

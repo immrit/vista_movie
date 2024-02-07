@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../../pocketBase/remote_Service.dart';
 import '../widgets/categories.dart';
 import '../widgets/itemsScroll.dart';
 import '../widgets/slider.dart';
 import '../widgets/widgets.dart';
+import 'Category_Screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -53,14 +53,22 @@ class _HomePageState extends State<HomePage> {
               children: [
                 SizedBox(height: 25),
                 SliderClass(),
-                SizedBox(height: 25),
+                // SizedBox(height: 25),
                 // //Category
+                seeMore(
+                  name: 'دسته بندی ها',
+                  ontap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CategoryScreen(),
+                    ));
+                  },
+                ),
                 Categories(),
-                seeMore(name: 'جدیدترین فیلم ها'),
+                seeMore(name: 'جدیدترین فیلم ها', ontap: () {}),
                 // //Movies
                 NewMovies(wi: wi, hi: hi),
                 // //seeMore Serials
-                seeMore(name: 'جدیدترین سریال ها'),
+                seeMore(name: 'جدیدترین سریال ها', ontap: () {}),
                 // //Serials
                 NewSerials(
                   wi: wi,

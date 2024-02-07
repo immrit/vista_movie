@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:vista_movie/view/Screens/HomePage.dart';
+import 'package:vista_movie/Di/di.dart';
+import 'package:vista_movie/util/api_exeption.dart';
 
 import '../../Models/DataModel.dart';
+import '../widgets/widgets.dart';
 import 'detail_Screen.dart';
 
 class MoviesView extends StatefulWidget {
@@ -12,6 +12,7 @@ class MoviesView extends StatefulWidget {
   @override
   State<MoviesView> createState() => _MoviesViewState();
 }
+
 class _MoviesViewState extends State<MoviesView> {
   var jsonList;
   bool fetchedData = false;
@@ -32,92 +33,28 @@ class _MoviesViewState extends State<MoviesView> {
         backgroundColor: Colors.black87,
         appBar: AppBar(
             centerTitle: true,
-            title: Text("فیلم هاh", style: TextStyle(color: Colors.white)),
+            title: Text("فیلم ها", style: TextStyle(color: Colors.white)),
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(.1)),
-        body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            padding: EdgeInsets.only(top: hi * .03),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 5,
-                  mainAxisExtent: hi * .25),
-              shrinkWrap: true,
-              itemCount: jsonList == null ? 0 : jsonList.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailScreen(
-                        image:
-                            'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
-                        name: jsonList[index]['name'],
-                        url: jsonList[index]['url'],
-                        subtitleUrl: jsonList[index]['subtitle'],
-
-                      ),
-                    ));
-                  },
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: wi * .3,
-                          height: hi * .2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Text(
-                          jsonList[index]['name'],
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            )));
+        body: itemsView(hi: hi, jsonList: jsonList, wi: wi));
   }
 
-  Future<void> fetchMovies() async {
-    while (!fetchedData){
-      await Future.delayed(Duration(seconds: 3));
-      try {
-        print("fetching movies data!!!");
-        Map<String, dynamic> q = {'sort': '-updated'};
-        BaseOptions options = new BaseOptions(
-            connectTimeout: Duration(milliseconds: 5000),
-            receiveTimeout: Duration(milliseconds: 5000)
-        );
-        Dio dio = new Dio(options);
-        var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Movies/records',
-            queryParameters: q);
-        if (response.statusCode == 200) {
-          print("movie data fetched!");
-          if (mounted) {
-            setState(() {
-              fetchedData = true;
-              jsonList = response.data['items'] as List;
-            });
-          }
-          break;
-        }
-        continue;
-      }
-      catch (e) {
-        print(e);
-      }
+  Future<List<DataModel>> fetchMovies() async {
+    final Dio _dio = locator.get();
+    Map<String, dynamic> q = {'sort': '-updated', 'expand': 'cats'};
+
+    try {
+      print("fetching movies data!!!");
+
+      var response =
+          await _dio.get('collections/movies/records', queryParameters: q);
+      return jsonList = response.data['items']
+          .map<DataModel>((json) => DataModel.fromMapJson(json))
+          .toList();
+    } on DioException catch (ex) {
+      throw ApiExeption(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw ApiExeption(0, 'unknown Error');
     }
   }
 }
