@@ -61,7 +61,8 @@ class _SerialViewState extends State<SerialView> {
                                 'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                             name: jsonList[index]['name'],
                             url: jsonList[index]['url'],
-                            subtitleUrl: jsonList[index]['subtitle'],
+                            subtitleUrl: jsonList[index]['subtitle'],                         cats: jsonList[index]['expand_cats'],
+
 
                           ),
                         ));
@@ -114,7 +115,7 @@ class _SerialViewState extends State<SerialView> {
         );
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Serials/records',
+            'https://vista.chbk.run/api/collections/series/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("series data fetched!");

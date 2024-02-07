@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +5,7 @@ import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
+import '../widgets/widgets.dart';
 import 'detail_Screen.dart';
 
 class MoviesView extends StatefulWidget {
@@ -14,6 +13,7 @@ class MoviesView extends StatefulWidget {
   @override
   State<MoviesView> createState() => _MoviesViewState();
 }
+
 class _MoviesViewState extends State<MoviesView> {
   var jsonList;
   bool fetchedData = false;
@@ -34,7 +34,7 @@ class _MoviesViewState extends State<MoviesView> {
         backgroundColor: Colors.black87,
         appBar: AppBar(
             centerTitle: true,
-            title: Text("فیلم هاh", style: TextStyle(color: Colors.white)),
+            title: Text("فیلم ها", style: TextStyle(color: Colors.white)),
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(.1)),
         body: Container(
@@ -51,8 +51,7 @@ class _MoviesViewState extends State<MoviesView> {
               itemCount: jsonList == null ? 0 : jsonList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                   onTap:
-                   some
+                  onTap: some
 
                   // () {
                   //
@@ -67,7 +66,7 @@ class _MoviesViewState extends State<MoviesView> {
                   //     ),
                   //   ));
                   // }
-                   ,
+                  ,
                   child: Container(
                     child: Column(
                       children: [
@@ -95,41 +94,35 @@ class _MoviesViewState extends State<MoviesView> {
               },
             )));
   }
-  void some()async {
-      try {
-        print("===================================================================================");
-        final pb = PocketBase('https://vvista.chbk.run');
-          final resultList = await pb.collection('Series').getFullList(
-              filter: 'gener ~ "action"'
 
-          );
-        if (!resultList.isNull) {
-          print("!!! DATA FETCHED !!! =++      ${resultList}" );
-          print("===================================================================================");
-
-        }
+  void some() async {
+    try {
+      print(
+          "===================================================================================");
+      final pb = PocketBase('https://vvista.chbk.run');
+      final resultList =
+          await pb.collection('Series').getFullList(filter: 'gener ~ "action"');
+      if (!resultList.isNull) {
+        print("!!! DATA FETCHED !!! =++      ${resultList}");
+        print(
+            "===================================================================================");
       }
-      catch (e) {
-        print(e);
-        print("===================================================================================");
-
-
-      }
+    } catch (e) {
+      print(e);
+      print(
+          "===================================================================================");
+    }
   }
 
-
-
-
   Future<void> fetchMovies() async {
-    while (!fetchedData){
+    while (!fetchedData) {
       await Future.delayed(Duration(seconds: 3));
       try {
         print("fetching movies data!!!");
         Map<String, dynamic> q = {'sort': '-updated'};
         BaseOptions options = new BaseOptions(
             connectTimeout: Duration(milliseconds: 5000),
-            receiveTimeout: Duration(milliseconds: 5000)
-        );
+            receiveTimeout: Duration(milliseconds: 5000));
         Dio dio = new Dio(options);
         var response = await dio.get(
             'https://vista.chbk.run/api/collections/Movies/records',
@@ -145,11 +138,9 @@ class _MoviesViewState extends State<MoviesView> {
           break;
         }
         continue;
-      }
-      catch (e) {
+      } catch (e) {
         print(e);
       }
     }
-
   }
 }

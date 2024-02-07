@@ -4,10 +4,17 @@ import 'package:vista_movie/util/api_exeption.dart';
 
 import '../datasource/auth_datasource.dart';
 
-class AutunticationRepository {
+abstract class IAuthRepository {
+  Future<Either<String, String>> register(
+      String username, String email, String password, String passwordConfirm);
+}
+
+class AutunticationRepository extends IAuthRepository {
   final IAuthanticationDataSource _datasource = locator.get();
 
-  Future<Either<String, String>> register() async {
+  @override
+  Future<Either<String, String>> register(String username, String email,
+      String password, String passwordConfirm) async {
     try {
       await _datasource.register(
           'username', 'password', 'password', 'email@g.co');
