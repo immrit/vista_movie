@@ -80,8 +80,8 @@ class DetailScreen extends StatelessWidget {
                               EdgeInsets.only(top: hi * .08, left: wi * .05),
                           child: Text(
                             name,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: true,
+                            // overflow: TextOverflow.ellipsis,
+                            // softWrap: true,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),

@@ -24,11 +24,12 @@ class Genre extends StatefulWidget {
   @override
   State<Genre> createState() => _GenreState();
 }
+
 class _GenreState extends State<Genre> {
   late List<dynamic> genreData = [];
   late DataFetcher dataFetcher;
   bool isConnected = false;
-  bool  isDataFetched = false;
+  bool isDataFetched = false;
   @override
   void initState() {
     super.initState();
@@ -42,84 +43,85 @@ class _GenreState extends State<Genre> {
     // });
     fetchData();
   }
-  void fetchData() async {
 
-      DataFetcher dataFetcher = DataFetcher(
-        cName: widget.collectionName,
-        gName: widget.genreName,
-      );
-      switch (widget.collectionName) {
-        case 'movies':
-          switch (widget.genreName) {
-            case 'drama':
-              if (DataFetcher.moviesGenerDrama.isNotEmpty) {
-                setState(() {
-                  genreData = DataFetcher.moviesGenerDrama;
-                  isDataFetched = true;
-                });
-                return;
-              }
-              break;
-            case 'action':
-              if (DataFetcher.moviesGenerAction.isNotEmpty) {
-                setState(() {
-                  genreData = DataFetcher.moviesGenerAction;
-                  isDataFetched = true;
-                });
-                return;
-              }
-              break;
-            case 'fantesy':
-              if (DataFetcher.moviesGenerFantasy.isNotEmpty) {
-                setState(() {
-                  genreData = DataFetcher.moviesGenerFantasy;
-                  isDataFetched = true;
-                });
-                return;
-              }
-              break;
-          }
-          break;
-        case 'series':
-          switch (widget.genreName) {
-            case 'drama':
-              if (DataFetcher.seriesGenerDrama.isNotEmpty) {
-                setState(() {
-                  genreData = DataFetcher.seriesGenerDrama;
-                  isDataFetched = true;
-                });
-                return;
-              }
-              break;
-            case 'action':
-              if (DataFetcher.seriesGenerAction.isNotEmpty) {
-                setState(() {
-                  genreData = DataFetcher.seriesGenerAction;
-                  isDataFetched = true;
-                });
-                return;
-              }
-              break;
-            case 'fantasy':
-              if (DataFetcher.seriesGenerFantasy.isNotEmpty) {
-                setState(() {
-                  genreData = DataFetcher.seriesGenerFantasy;
-                  isDataFetched = true;
-                });
-                return;
-              }
-              break;
-          }
-          break;
-      }
-      if (genreData.isEmpty) {
-        List<dynamic> fetchedData = await dataFetcher.fetchGener();
-        setState(() {
-          genreData = fetchedData;
-          isDataFetched = true;
-        });
-      }
+  void fetchData() async {
+    DataFetcher dataFetcher = DataFetcher(
+      cName: widget.collectionName,
+      gName: widget.genreName,
+    );
+    switch (widget.collectionName) {
+      case 'movies':
+        switch (widget.genreName) {
+          case 'drama':
+            if (DataFetcher.moviesGenerDrama.isNotEmpty) {
+              setState(() {
+                genreData = DataFetcher.moviesGenerDrama;
+                isDataFetched = true;
+              });
+              return;
+            }
+            break;
+          case 'action':
+            if (DataFetcher.moviesGenerAction.isNotEmpty) {
+              setState(() {
+                genreData = DataFetcher.moviesGenerAction;
+                isDataFetched = true;
+              });
+              return;
+            }
+            break;
+          case 'fantesy':
+            if (DataFetcher.moviesGenerFantasy.isNotEmpty) {
+              setState(() {
+                genreData = DataFetcher.moviesGenerFantasy;
+                isDataFetched = true;
+              });
+              return;
+            }
+            break;
+        }
+        break;
+      case 'series':
+        switch (widget.genreName) {
+          case 'drama':
+            if (DataFetcher.seriesGenerDrama.isNotEmpty) {
+              setState(() {
+                genreData = DataFetcher.seriesGenerDrama;
+                isDataFetched = true;
+              });
+              return;
+            }
+            break;
+          case 'action':
+            if (DataFetcher.seriesGenerAction.isNotEmpty) {
+              setState(() {
+                genreData = DataFetcher.seriesGenerAction;
+                isDataFetched = true;
+              });
+              return;
+            }
+            break;
+          case 'fantasy':
+            if (DataFetcher.seriesGenerFantasy.isNotEmpty) {
+              setState(() {
+                genreData = DataFetcher.seriesGenerFantasy;
+                isDataFetched = true;
+              });
+              return;
+            }
+            break;
+        }
+        break;
+    }
+    if (genreData.isEmpty) {
+      List<dynamic> fetchedData = await dataFetcher.fetchGener();
+      setState(() {
+        genreData = fetchedData;
+        isDataFetched = true;
+      });
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,17 +145,19 @@ class _GenreState extends State<Genre> {
                             'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}',
                         name: genreData[index]['name'],
                         url: genreData[index]['url'],
-                        subtitleUrl: genreData[index]['subtitle'],
+                        subtitleUrl: genreData[index]['subtitle'], cats: 'cats',
                         // url: snapshot.data![index].url,
                       ),
                     ));
                   },
                   child: Container(
+                    // color: Colors.amber,
                     margin: EdgeInsets.only(
                         right: index == 0 ? 28 : 10,
                         left: 5,
                         top: 5,
-                        bottom: 5),
+                      bottom: 5
+                        ),
                     child: Column(
                       children: [
                         Container(
@@ -166,13 +170,26 @@ class _GenreState extends State<Genre> {
                                       'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}'),
                                   fit: BoxFit.cover)),
                         ),
-                        Text(
-                          genreData[index]['name'],
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                        )
+
+
+
+
+
+                        Container(
+                          alignment: Alignment.center,
+                          width: widget.wi * .3,
+                          child: Text(
+                            genreData[index]['name'],
+                            // softWrap: true,
+                            overflow:TextOverflow.ellipsis ,
+
+                            style: TextStyle(
+
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -188,4 +205,4 @@ class _GenreState extends State<Genre> {
       ),
     );
   }
-  }
+}

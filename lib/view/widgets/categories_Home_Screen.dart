@@ -5,16 +5,16 @@ import 'package:vista_movie/pocketBase/remote_Service.dart';
 import '../../Di/di.dart';
 import '../../Models/DataModel.dart';
 
-class Categories extends StatefulWidget {
-  Categories({
+class CategoriesHomeScreen extends StatefulWidget {
+  CategoriesHomeScreen({
     super.key,
   });
 
   @override
-  State<Categories> createState() => _CategoriesState();
+  State<CategoriesHomeScreen> createState() => _CategoriesHomeScreenState();
 }
 
-class _CategoriesState extends State<Categories> {
+class _CategoriesHomeScreenState extends State<CategoriesHomeScreen> {
   var jsonList;
   bool fetchedData = false;
   @override
