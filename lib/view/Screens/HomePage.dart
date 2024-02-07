@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../pocketBase/remote_Service.dart';
 import '../widgets/categories.dart';
-import '../widgets/itemsScroll.dart';
+import '../widgets/itemScroll.dart';
 import '../widgets/slider.dart';
 import '../widgets/widgets.dart';
 import 'Category_Screen.dart';
@@ -70,10 +70,6 @@ class _HomePageState extends State<HomePage> {
                 // //seeMore Serials
                 seeMore(name: 'جدیدترین سریال ها', ontap: () {}),
                 // //Serials
-                NewSerials(
-                  wi: wi,
-                  hi: hi,
-                )
               ],
             ),
           ],

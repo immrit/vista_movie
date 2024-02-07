@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:vista_movie/Di/di.dart';
-import 'package:vista_movie/util/api_exeption.dart';
+import 'package:get/get.dart';
+import 'package:pocketbase/pocketbase.dart';
+import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
 import '../widgets/widgets.dart';
@@ -36,25 +37,110 @@ class _MoviesViewState extends State<MoviesView> {
             title: Text("فیلم ها", style: TextStyle(color: Colors.white)),
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(.1)),
-        body: itemsView(hi: hi, jsonList: jsonList, wi: wi));
+        body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: EdgeInsets.only(top: hi * .03),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 5,
+                  mainAxisExtent: hi * .25),
+              shrinkWrap: true,
+              itemCount: jsonList == null ? 0 : jsonList.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: some
+
+                  // () {
+                  //
+                  //   Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => DetailScreen(
+                  //       image:
+                  //           'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
+                  //       name: jsonList[index]['name'],
+                  //       url: jsonList[index]['url'],
+                  //       subtitleUrl: jsonList[index]['subtitle'],
+                  //
+                  //     ),
+                  //   ));
+                  // }
+                  ,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: wi * .3,
+                          height: hi * .2,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Text(
+                          jsonList[index]['name'],
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            )));
   }
 
-  Future<List<DataModel>> fetchMovies() async {
-    final Dio _dio = locator.get();
-    Map<String, dynamic> q = {'sort': '-updated', 'expand': 'cats'};
-
+  void some() async {
     try {
-      print("fetching movies data!!!");
+      print(
+          "===================================================================================");
+      final pb = PocketBase('https://vvista.chbk.run');
+      final resultList =
+          await pb.collection('Series').getFullList(filter: 'gener ~ "action"');
+      if (!resultList.isNull) {
+        print("!!! DATA FETCHED !!! =++      ${resultList}");
+        print(
+            "===================================================================================");
+      }
+    } catch (e) {
+      print(e);
+      print(
+          "===================================================================================");
+    }
+  }
 
-      var response =
-          await _dio.get('collections/movies/records', queryParameters: q);
-      return jsonList = response.data['items']
-          .map<DataModel>((json) => DataModel.fromMapJson(json))
-          .toList();
-    } on DioException catch (ex) {
-      throw ApiExeption(ex.response?.statusCode, ex.response?.data['message']);
-    } catch (ex) {
-      throw ApiExeption(0, 'unknown Error');
+  Future<void> fetchMovies() async {
+    while (!fetchedData) {
+      await Future.delayed(Duration(seconds: 3));
+      try {
+        print("fetching movies data!!!");
+        Map<String, dynamic> q = {'sort': '-updated'};
+        BaseOptions options = new BaseOptions(
+            connectTimeout: Duration(milliseconds: 5000),
+            receiveTimeout: Duration(milliseconds: 5000));
+        Dio dio = new Dio(options);
+        var response = await dio.get(
+            'https://vista.chbk.run/api/collections/Movies/records',
+            queryParameters: q);
+        if (response.statusCode == 200) {
+          // print("movie data fetched! ${response.data['items']}" );
+          if (mounted) {
+            setState(() {
+              fetchedData = true;
+              jsonList = response.data['items'] as List;
+            });
+          }
+          break;
+        }
+        continue;
+      } catch (e) {
+        print(e);
+      }
     }
   }
 }

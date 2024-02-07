@@ -49,6 +49,7 @@ dependencies:
   subtitle_wrapper_package: ^2.2.0
   video_player: ^2.8.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
