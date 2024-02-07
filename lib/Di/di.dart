@@ -16,5 +16,5 @@ Future<void> getItInit() async {
 
   //repositories
 
-  locator.registerFactory<IAuthRepository>(() => AutunticationRepository());
+  locator.registerFactory<IAuthenticationDatasource>(() => AutunticationRepository());
 }

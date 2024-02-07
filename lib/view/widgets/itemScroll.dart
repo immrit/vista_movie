@@ -171,10 +171,6 @@ class _GenreState extends State<Genre> {
                                   fit: BoxFit.cover)),
                         ),
 
-
-
-
-
                         Container(
                           alignment: Alignment.center,
                           width: widget.wi * .3,
