@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 SizedBox(height: 25),
-                SliderClass(),
+                SliderWidget(),
                 SizedBox(height: 25),
                 // // // //Category
                 // Categories(),

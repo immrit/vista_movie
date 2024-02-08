@@ -8,7 +8,6 @@ import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
 import 'detail_Screen.dart';
-
 class MoviesView extends StatefulWidget {
   const MoviesView({super.key});
   @override
@@ -17,7 +16,6 @@ class MoviesView extends StatefulWidget {
 class _MoviesViewState extends State<MoviesView> {
   var jsonList;
   bool fetchedData = false;
-
   @override
   void initState() {
     super.initState();
@@ -25,7 +23,6 @@ class _MoviesViewState extends State<MoviesView> {
       fetchMovies();
     }
   }
-
   @override
   Widget build(BuildContext context) {
     var wi = MediaQuery.of(context).size.width;
@@ -112,14 +109,8 @@ class _MoviesViewState extends State<MoviesView> {
       catch (e) {
         print(e);
         print("===================================================================================");
-
-
       }
   }
-
-
-
-
   Future<void> fetchMovies() async {
     while (!fetchedData){
       await Future.delayed(Duration(seconds: 3));
