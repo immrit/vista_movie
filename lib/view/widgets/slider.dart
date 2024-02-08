@@ -7,19 +7,18 @@ import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Models/DataModel.dart';
 
-class SliderClass extends StatefulWidget {
-  SliderClass({
+class SliderWidget extends StatefulWidget {
+  SliderWidget({
     super.key,
   });
 
   @override
-  State<SliderClass> createState() => _SliderClassState();
+  State<SliderWidget> createState() => _SliderWidgetState();
 }
 
-class _SliderClassState extends State<SliderClass> {
+class _SliderWidgetState extends State<SliderWidget> {
   var jsonList;
   bool fetchedData = false;
-
 
   @override
   void initState() {
@@ -120,13 +119,19 @@ class _SliderClassState extends State<SliderClass> {
             queryParameters: q);
         if (response.statusCode == 200) {
           print("Slider data fetched!");
-          setState(() {
-            fetchedData = true;
-            jsonList = response.data['items'] as List;
-          });
+          fetchedData = true;
+          if (mounted) {
+            setState(() {
+              fetchedData = true;
+              jsonList = response.data['items'] as List;
+            });
+            break;
+          }
           break;
+
         }
-        continue;
+
+
       }
       catch (e) {
         print(e);
@@ -134,6 +139,7 @@ class _SliderClassState extends State<SliderClass> {
     }
   }
 }
+
 
 class CarouselLoading extends StatelessWidget {
   CarouselLoading({super.key});

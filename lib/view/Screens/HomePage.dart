@@ -53,12 +53,12 @@ class _HomePageState extends State<HomePage> {
               children: [
                 SizedBox(height: 25),
                 SliderClass(),
-           //Category
+                //Category
                 seeMore(
                   name: 'ژانرها',
                   ontap: () {},
                 ),
-               CategoriesHomeScreen(),
+                CategoriesHomeScreen(),
                 seeMore(
                   name: 'اکشن',
                   ontap: () {},

@@ -31,6 +31,10 @@ class _GenreState extends State<Genre> {
   bool isConnected = false;
   bool isDataFetched = false;
   @override
+  void dispose() {
+    super.dispose();
+  }
+
   void initState() {
     super.initState();
     // Connectivity().checkConnectivity().then((result) {
@@ -156,8 +160,7 @@ class _GenreState extends State<Genre> {
                         right: index == 0 ? 28 : 10,
                         left: 5,
                         top: 5,
-                      bottom: 5
-                        ),
+                        bottom: 5),
                     child: Column(
                       children: [
                         Container(
@@ -170,17 +173,15 @@ class _GenreState extends State<Genre> {
                                       'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}'),
                                   fit: BoxFit.cover)),
                         ),
-
                         Container(
                           alignment: Alignment.center,
                           width: widget.wi * .3,
                           child: Text(
                             genreData[index]['name'],
                             // softWrap: true,
-                            overflow:TextOverflow.ellipsis ,
+                            overflow: TextOverflow.ellipsis,
 
                             style: TextStyle(
-
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),

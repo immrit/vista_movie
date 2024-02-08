@@ -17,7 +17,6 @@ class MoviesView extends StatefulWidget {
 class _MoviesViewState extends State<MoviesView> {
   var jsonList;
   bool fetchedData = false;
-
   @override
   void initState() {
     super.initState();
