@@ -24,6 +24,7 @@ class Genre extends StatefulWidget {
   @override
   State<Genre> createState() => _GenreState();
 }
+
 class _GenreState extends State<Genre> {
   late List<dynamic> genreData = [];
   late DataFetcher dataFetcher;
@@ -33,6 +34,7 @@ class _GenreState extends State<Genre> {
   void dispose() {
     super.dispose();
   }
+
   void initState() {
     super.initState();
     // Connectivity().checkConnectivity().then((result) {
@@ -117,12 +119,10 @@ class _GenreState extends State<Genre> {
     }
     if (genreData.isEmpty) {
       List<dynamic> fetchedData = await dataFetcher.fetchGener();
-      if (mounted) {
-        setState(() {
-          genreData = fetchedData;
-          isDataFetched = true;
-        });
-      }
+      setState(() {
+        genreData = fetchedData;
+        isDataFetched = true;
+      });
     }
   }
 
@@ -149,7 +149,7 @@ class _GenreState extends State<Genre> {
                             'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}',
                         name: genreData[index]['name'],
                         url: genreData[index]['url'],
-                        subtitleUrl: genreData[index]['subtitle'],
+                        subtitleUrl: genreData[index]['subtitle'], cats: 'cats',
                         // url: snapshot.data![index].url,
                       ),
                     ));
@@ -160,8 +160,7 @@ class _GenreState extends State<Genre> {
                         right: index == 0 ? 28 : 10,
                         left: 5,
                         top: 5,
-                      bottom: 5
-                        ),
+                        bottom: 5),
                     child: Column(
                       children: [
                         Container(
@@ -174,17 +173,15 @@ class _GenreState extends State<Genre> {
                                       'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}'),
                                   fit: BoxFit.cover)),
                         ),
-
                         Container(
                           alignment: Alignment.center,
                           width: widget.wi * .3,
                           child: Text(
                             genreData[index]['name'],
                             // softWrap: true,
-                            overflow:TextOverflow.ellipsis ,
+                            overflow: TextOverflow.ellipsis,
 
                             style: TextStyle(
-
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),

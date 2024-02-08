@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../pocketBase/remote_Service.dart';
-import '../widgets/categories.dart';
+import '../widgets/categories_Home_Screen.dart';
 import '../widgets/itemScroll.dart';
 import '../widgets/slider.dart';
 import '../widgets/widgets.dart';
@@ -52,20 +52,43 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 SizedBox(height: 25),
-                SliderWidget(),
-                SizedBox(height: 25),
-                // // // //Category
-                // Categories(),
-                seeMore(name: 'Action'),
-                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "action"),
-                seeMore(name: 'Drama'),
-                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "drama"),
-                seeMore(name: 'fantasy'),
-                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "fantasy"),
+                SliderClass(),
+                //Category
+                seeMore(
+                  name: 'ژانرها',
+                  ontap: () {},
+                ),
+                CategoriesHomeScreen(),
+                seeMore(
+                  name: 'اکشن',
+                  ontap: () {},
+                ),
+                Genre(
+                    wi: wi,
+                    hi: hi,
+                    collectionName: 'movies',
+                    genreName: "action"),
+                seeMore(
+                  name: 'درام',
+                  ontap: () {},
+                ),
+                Genre(
+                    wi: wi,
+                    hi: hi,
+                    collectionName: 'movies',
+                    genreName: "drama"),
+                seeMore(
+                  name: 'فانتزی',
+                  ontap: () {},
+                ),
+                Genre(
+                    wi: wi,
+                    hi: hi,
+                    collectionName: 'movies',
+                    genreName: "fantasy"),
                 // // //seeMore Serials
                 // seeMore(name: 'جدیدترین سریال ها'),
                 // //Serials
-
               ],
             ),
           ],
