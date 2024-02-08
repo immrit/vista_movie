@@ -41,6 +41,8 @@
             receiveTimeout: Duration(milliseconds: 8000)
         );
         Dio dio = new Dio(options);
+        // dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: false, requestHeader: true));
+
         final response = await dio.get(
           url,
           queryParameters: {'filter': 'gener ~ "$gName"'},

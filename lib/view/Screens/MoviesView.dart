@@ -14,7 +14,7 @@ class MoviesView extends StatefulWidget {
   State<MoviesView> createState() => _MoviesViewState();
 }
 class _MoviesViewState extends State<MoviesView> {
-  var jsonList;
+  late final  jsonList;
   bool fetchedData = false;
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _MoviesViewState extends State<MoviesView> {
         backgroundColor: Colors.black87,
         appBar: AppBar(
             centerTitle: true,
-            title: Text("فیلم هاh", style: TextStyle(color: Colors.white)),
+            title: Text("فیلم ها", style: TextStyle(color: Colors.white)),
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(.1)),
         body: Container(

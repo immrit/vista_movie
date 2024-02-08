@@ -6,25 +6,21 @@ import 'package:get/get.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/Di/fetchData.dart';
 import 'package:vista_movie/view/Screens/detail_Screen.dart';
-import '../../Di/di.dart';
-import '../../Models/DataModel.dart';
-
-class Genre extends StatefulWidget {
-  const   Genre({
+class GenerViewer extends StatefulWidget {
+  const GenerViewer({
     super.key,
-    required this.wi,
-    required this.hi,
     required this.genreName,
     required this.collectionName,
+    required this.type
   });
-  final double wi;
-  final double hi;
+  final String type;
   final String genreName;
   final String collectionName;
+
   @override
-  State<Genre> createState() => _GenreState();
+  State<GenerViewer> createState() => _GenerViewerState();
 }
-class _GenreState extends State<Genre> {
+class _GenerViewerState extends State<GenerViewer> {
   late List<dynamic> genreData = [];
   late DataFetcher dataFetcher;
   bool isConnected = false;
@@ -47,8 +43,10 @@ class _GenreState extends State<Genre> {
   }
 
   void fetchData() async {
+    print("in fetcher !+!+!!++!");
+
     DataFetcher dataFetcher = DataFetcher(
-      cName: widget.collectionName,
+      cName: widget.type,
       gName: widget.genreName,
     );
     switch (widget.collectionName) {
@@ -125,84 +123,64 @@ class _GenreState extends State<Genre> {
       }
     }
   }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: widget.hi * .28,
-      child: FutureBuilder(
-        future: Future.value(isDataFetched ? genreData : null),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              reverse: true,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: genreData == null ? 0 : genreData.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailScreen(
-                        image:
-                            'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}',
-                        name: genreData[index]['name'],
-                        url: genreData[index]['url'],
-                        subtitleUrl: genreData[index]['subtitle'], geners: genreData[index]['gener'],
-                        // url: snapshot.data![index].url,
-                      ),
-                    ));
-                  },
-                  child: Container(
-                    // color: Colors.amber,
-                    margin: EdgeInsets.only(
-                        right: index == 0 ? 28 : 10,
-                        left: 5,
-                        top: 5,
-                      bottom: 5
-                        ),
-                    child: Column(
+    var wi = MediaQuery.of(context).size.width;
+    var hi = MediaQuery.of(context).size.height;
+    return  Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: EdgeInsets.only(top: hi * .03),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 0,
+              crossAxisSpacing: 0,
+              mainAxisExtent: hi * .15),
+          shrinkWrap: true,
+          itemCount: genreData == null ? 0 : genreData.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+
+              },
+              child: Container(
+                child: Column(
+                  children: [
+                    Stack(
                       children: [
                         Container(
-                          width: widget.wi * .3,
-                          height: widget.hi * .23,
+                          width: wi * .45,
+                          height: hi * .12,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}'),
-                                  fit: BoxFit.cover)),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['cover']}',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-
-                        Container(
-                          alignment: Alignment.center,
-                          width: widget.wi * .3,
-                          child: Text(
-                            genreData[index]['name'],
-                            // softWrap: true,
-                            overflow:TextOverflow.ellipsis ,
-
-                            style: TextStyle(
-
+                        Positioned.fill(top: hi * 0.06,
+                          child: Center(
+                            child: Text(
+                              genreData[index]['gener'],
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                fontSize: 15,
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                );
-              },
+                  ],
+                ),
+              ),
             );
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
+          },
+        ));
   }
 }
