@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/Di/fetchData.dart';
 import 'package:vista_movie/view/Screens/detail_Screen.dart';
+
+import '../../../Models/DataModel.dart';
 class GenerViewer extends StatefulWidget {
   const GenerViewer({
     super.key,
@@ -21,7 +23,7 @@ class GenerViewer extends StatefulWidget {
   State<GenerViewer> createState() => _GenerViewerState();
 }
 class _GenerViewerState extends State<GenerViewer> {
-  late List<dynamic> genreData = [];
+  late List<DataModel> genreData = [];
   late DataFetcher dataFetcher;
   bool isConnected = false;
   bool isDataFetched = false;
@@ -43,10 +45,8 @@ class _GenerViewerState extends State<GenerViewer> {
   }
 
   void fetchData() async {
-    print("in fetcher !+!+!!++!");
-
     DataFetcher dataFetcher = DataFetcher(
-      cName: widget.type,
+      cName: widget.collectionName,
       gName: widget.genreName,
     );
     switch (widget.collectionName) {
@@ -114,7 +114,7 @@ class _GenerViewerState extends State<GenerViewer> {
         break;
     }
     if (genreData.isEmpty) {
-      List<dynamic> fetchedData = await dataFetcher.fetchGener();
+      List<DataModel> fetchedData = await dataFetcher.fetchGener();
       if (mounted) {
         setState(() {
           genreData = fetchedData;
@@ -156,7 +156,7 @@ class _GenerViewerState extends State<GenerViewer> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                               image: NetworkImage(
-                                'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['cover']}',
+                                'https://vista.chbk.run/api/files/${genreData[index].collectionId}/${genreData[index].id}/${genreData[index].logo}',
                               ),
                               fit: BoxFit.cover,
                             ),
@@ -165,7 +165,7 @@ class _GenerViewerState extends State<GenerViewer> {
                         Positioned.fill(top: hi * 0.06,
                           child: Center(
                             child: Text(
-                              genreData[index]['gener'],
+                              genreData[index].id,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

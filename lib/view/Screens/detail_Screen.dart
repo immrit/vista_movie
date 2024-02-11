@@ -2,13 +2,11 @@ import 'dart:math';
 import 'package:external_video_player_launcher/external_video_player_launcher.dart';
 import 'package:flutter/material.dart';
 import 'VideoPlayer.dart';
-
 class DetailScreen extends StatelessWidget {
   String image;
   String name;
   String url;
   String subtitleUrl;
-<<<<<<< HEAD
   final List<dynamic> geners;
   DetailScreen({
     Key? key,
@@ -18,17 +16,6 @@ class DetailScreen extends StatelessWidget {
     required this.subtitleUrl,
     required this.geners
   }) : super(key: key);
-=======
-  String cats;
-  DetailScreen(
-      {Key? key,
-      required this.image,
-      required this.name,
-      required this.url,
-      required this.subtitleUrl,
-      required this.cats})
-      : super(key: key);
->>>>>>> 9513f06edb2e726f9a14cff8b7d8de82c26d433e
   @override
   Widget build(BuildContext context) {
     var wi = MediaQuery.of(context).size.width;
@@ -92,8 +79,8 @@ class DetailScreen extends StatelessWidget {
                               EdgeInsets.only(top: hi * .08, left: wi * .05),
                           child: Text(
                             name,
-                            // overflow: TextOverflow.ellipsis,
-                            // softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),
@@ -110,10 +97,18 @@ class DetailScreen extends StatelessWidget {
                               builder: (context) => VideoPlayerScreen(
                                 videoUrl: url,
                                 subtitleUrl: subtitleUrl,
+
                               ),
                             ));
                           },
                           child: const Icon(Icons.play_arrow),
+                          
+                          //   onPressed: () {
+                          //     ExternalVideoPlayerLauncher.launchOtherPlayer(
+                          //         url, MIME.applicationXMpegURL, {
+                          //       "title": name,
+                          //     });
+                          //   },
                         ),
                       )
                     ],
@@ -121,7 +116,6 @@ class DetailScreen extends StatelessWidget {
                 )
               ],
             ),
-<<<<<<< HEAD
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: geners.map((geners) {
@@ -142,10 +136,6 @@ class DetailScreen extends StatelessWidget {
               },
             ),
         ])),
-=======
-            Text("cats"),
-          ])),
->>>>>>> 9513f06edb2e726f9a14cff8b7d8de82c26d433e
     );
   }
 }

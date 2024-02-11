@@ -26,7 +26,6 @@ class GenerScreenState extends State<GenerScreen> {
     while (!fetchedData) {
       await Future.delayed(Duration(seconds: 3));
       try {
-        print("fetching movies data!!!");
         Map<String, dynamic> q = {'sort': '-updated'};
         BaseOptions options = new BaseOptions(
             connectTimeout: Duration(milliseconds: 5000),

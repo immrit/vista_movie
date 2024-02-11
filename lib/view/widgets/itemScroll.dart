@@ -24,9 +24,8 @@ class Genre extends StatefulWidget {
   @override
   State<Genre> createState() => _GenreState();
 }
-
 class _GenreState extends State<Genre> {
-  late List<dynamic> genreData = [];
+  late List<DataModel> genreData = [];
   late DataFetcher dataFetcher;
   bool isConnected = false;
   bool isDataFetched = false;
@@ -34,7 +33,6 @@ class _GenreState extends State<Genre> {
   void dispose() {
     super.dispose();
   }
-
   void initState() {
     super.initState();
     // Connectivity().checkConnectivity().then((result) {
@@ -118,14 +116,15 @@ class _GenreState extends State<Genre> {
         break;
     }
     if (genreData.isEmpty) {
-      List<dynamic> fetchedData = await dataFetcher.fetchGener();
-      setState(() {
-        genreData = fetchedData;
-        isDataFetched = true;
-      });
+      List<DataModel> fetchedData = await dataFetcher.fetchGener();
+      if (mounted) {
+        setState(() {
+          genreData = fetchedData;
+          isDataFetched = true;
+        });
+      }
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,17 +142,15 @@ class _GenreState extends State<Genre> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
+                    fetchData();
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DetailScreen(
                         image:
-                            'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}',
-                        name: genreData[index]['name'],
-                        url: genreData[index]['url'],
-<<<<<<< HEAD
-                        subtitleUrl: genreData[index]['subtitle'], geners: genreData[index]['gener'],
-=======
-                        subtitleUrl: genreData[index]['subtitle'], cats: 'cats',
->>>>>>> 9513f06edb2e726f9a14cff8b7d8de82c26d433e
+                        'https://vista.chbk.run/api/files/${genreData[index].collectionId}/${genreData[index].id}/${genreData[index].logo}',
+                        name: genreData[index].name,
+                        url: genreData[index].url,
+                        subtitleUrl: genreData[index].subTitle, geners: genreData[index].expandGener
+                        ,
                         // url: snapshot.data![index].url,
                       ),
                     ));
@@ -164,7 +161,8 @@ class _GenreState extends State<Genre> {
                         right: index == 0 ? 28 : 10,
                         left: 5,
                         top: 5,
-                        bottom: 5),
+                      bottom: 5
+                        ),
                     child: Column(
                       children: [
                         Container(
@@ -174,18 +172,20 @@ class _GenreState extends State<Genre> {
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      'https://vista.chbk.run/api/files/${genreData[index]['collectionId']}/${genreData[index]['id']}/${genreData[index]['logo']}'),
+                                      'https://vista.chbk.run/api/files/${genreData[index].collectionId}/${genreData[index].id}/${genreData[index].logo}'),
                                   fit: BoxFit.cover)),
                         ),
+
                         Container(
                           alignment: Alignment.center,
                           width: widget.wi * .3,
                           child: Text(
-                            genreData[index]['name'],
+                            genreData[index].name,
                             // softWrap: true,
-                            overflow: TextOverflow.ellipsis,
+                            overflow:TextOverflow.ellipsis ,
 
                             style: TextStyle(
+
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),
