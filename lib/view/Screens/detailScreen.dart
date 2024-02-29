@@ -7,14 +7,14 @@ class DetailScreen extends StatelessWidget {
   String name;
   String url;
   String subtitleUrl;
-  final List<dynamic> geners;
+  final List<String> genre;
   DetailScreen({
     Key? key,
     required this.image,
     required this.name,
     required this.url,
     required this.subtitleUrl,
-    required this.geners
+    required this.genre
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -118,19 +118,19 @@ class DetailScreen extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: geners.map((geners) {
+              children: genre.map((genres) {
                 return Text(
-                  geners,
+                  genres,
                   style: TextStyle(fontSize: 20,color: Colors.white),
                 );
               }).toList(),
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: geners.length,
+              itemCount: genre.length,
               itemBuilder: (context, index) {
                 return Text(
-                  geners[index],
+                  genre[index],
                   style: TextStyle(fontSize: 16,color: Colors.white),
                 );
               },

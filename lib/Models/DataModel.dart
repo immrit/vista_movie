@@ -37,6 +37,47 @@
 //   //       "updated": updated.toIso8601String(),
 //   //     };
 // }
+// class SliderModel {
+//   String collectionId;
+//   String collectionName;
+//   DateTime created;
+//   String id;
+//   String name;
+//   String pic;
+//   DateTime updated;
+
+//   SliderModel({
+//     required this.collectionId,
+//     required this.collectionName,
+//     required this.created,
+//     required this.id,
+//     required this.name,
+//     required this.pic,
+//     required this.updated,
+//   });
+
+//   factory SliderModel.fromJson(Map<String, dynamic> json) => SliderModel(
+//         collectionId: json["collectionId"],
+//         collectionName: json["collectionName"],
+//         created: DateTime.parse(json["created"]),
+//         id: json["id"],
+//         name: json["name"],
+//         pic: json["pic"],
+//         updated: DateTime.parse(json["updated"]),
+//       );
+
+//   // Map<String, dynamic> toJson() => {
+//   //       "collectionId": collectionId,
+//   //       "collectionName": collectionName,
+//   //       "created": created.toIso8601String(),
+//   //       "id": id,
+//   //       "name": name,
+//   //       "pic": pic,
+//   //       "updated": updated.toIso8601String(),
+//   //     };
+// }
+import 'dart:convert';
+
 class DataModel {
   final String id;
   final String name;
@@ -44,31 +85,50 @@ class DataModel {
   final String collectionId;
   final String url;
   final String subTitle;
-  final List<String> expandGener;
-  DataModel({
-    required this.id,
-    required this.name,
-    required this.logo,
-    required this.collectionId,
-    required this.url,
-    required this.subTitle,
-    required this.expandGener,
-  });
-  factory DataModel.fromJson(Map<String, dynamic> json) {
-    List<String> expandGener = [];
-    if (json['expand'] != null && json['expand']['gener'] != null) {
-      json['expand']['gener'].forEach((gener) {
-        expandGener.add(gener['gener']);
+  final List<String> genre;
+  DataModel(this.id,this.name,this.logo,this.collectionId,this.url,this.subTitle,this.genre);
+  factory DataModel.fromMapJson(Map<String,dynamic> jsonObject){
+    List<String> genre = [];
+    if (jsonObject['expand'] != null && jsonObject['expand']['genre'] != null) {
+      jsonObject['expand']['genre'].forEach((genreItem) {
+        genre.add(genreItem['genre']);
       });
     }
     return DataModel(
-      id: json['id'],
-      name: json['name'],
-      logo: json['logo'],
-      collectionId: json['collectionId'],
-      url: json['url'],
-      subTitle: json['subtitle'],
-      expandGener: expandGener,
+      jsonObject['id'],
+      jsonObject['name'],
+      jsonObject['logo'],
+      jsonObject['collectionId'],
+      jsonObject['url'],
+      jsonObject['subtitle'],
+      genre
     );
   }
+// DataModel({
+//   required this.id,
+//   required this.name,
+//   required this.logo,
+//   required this.collectionId,
+//   required this.url,
+//   required this.subTitle,
+//   required this.expandgenre,
+// });
+// factory DataModel.fromJson(Map<String, dynamic> json) {
+//   List<String> expandgenre = [];
+//   if (json['expand'] != null && json['expand']['genre'] != null) {
+//     json['expand']['genre'].forEach((genre) {
+//       expandgenre.add(genre['genre']);
+//     });
+//   }
+//   return DataModel(
+//     id: json['id'],
+//     name: json['name'],
+//     logo: json['logo'],
+//     collectionId: json['collectionId'],
+//     url: json['url'],
+//     subTitle: json['subtitle'],
+//     expandgenre: expandgenre,
+//
+//   );
+// }
 }

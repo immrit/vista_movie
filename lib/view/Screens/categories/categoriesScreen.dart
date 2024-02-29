@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'categories/generScreen.dart';
+import 'genreScreen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({
@@ -41,6 +41,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>  with TickerProvide
         bottom: TabBar(
           controller: _tabController,
           tabs: const <Widget>[
+            Tab(
+              text: "ژانر فیلم ها",
+            ),
+            Tab(
+              text: "ژانر سریال ها"),
 
             Tab(
               text: "ژانر",
@@ -51,12 +56,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>  with TickerProvide
             Tab(
               text: "ژانر",
             ),
-            Tab(
-              text: "ژانر فیلم ها",
-            ),
-            Tab(
-              text: "ژانر سریال ها",
-            ),
+
+
           ],
           labelStyle: TextStyle(fontSize: wi * .035,),
           labelPadding: EdgeInsets.symmetric(horizontal: 0),
@@ -66,15 +67,16 @@ class _CategoriesScreenState extends State<CategoriesScreen>  with TickerProvide
       body: TabBarView(
         controller: _tabController,
         children: const <Widget>[
+          GenreScreen(collectionName: 'moviesGenre',type: 'movies',),
+          GenreScreen(collectionName: 'seriesGenre',type: 'series',),
           Center(),
           Center(
-            child: Text("It's rainy here"),
+            child: Text("Some"),
           ),
           Center(
-            child: Text("It's sunny here"),
+            child: Text("Some"),
           ),
-          GenerScreen(collectionName: 'moviesGener',type: 'movies',),
-          GenerScreen(collectionName: 'seriesGener',type: 'series',),
+
         ],
       ),
     );

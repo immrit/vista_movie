@@ -57,11 +57,11 @@ class _HomePageState extends State<HomePage> {
                 // // // //Category
                 // Categories(),
                 seeMore(name: 'Action'),
-                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "action"),
+                ItemScroll(wi: wi, hi: hi,collectionName: 'movies',genreName: "action"),
                 seeMore(name: 'Drama'),
-                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "drama"),
+                ItemScroll(wi: wi, hi: hi,collectionName: 'movies',genreName: "drama"),
                 seeMore(name: 'fantasy'),
-                Genre(wi: wi, hi: hi,collectionName: 'movies',genreName: "fantasy"),
+                ItemScroll(wi: wi, hi: hi,collectionName: 'movies',genreName: "fantasy"),
                 // // //seeMore Serials
                 // seeMore(name: 'جدیدترین سریال ها'),
                 // //Serials

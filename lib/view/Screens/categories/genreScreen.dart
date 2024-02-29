@@ -2,15 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pocketbase/pocketbase.dart';
-import 'package:vista_movie/view/Screens/categories/generViewer.dart';
-class GenerScreen extends StatefulWidget {
-  const GenerScreen({Key? key,required this.collectionName,required this.type}) : super(key: key);
+import 'package:vista_movie/view/Screens/categories/genreViewer.dart';
+class GenreScreen extends StatefulWidget {
+  const GenreScreen({Key? key,required this.collectionName,required this.type}) : super(key: key);
   final String collectionName;
   final String type;
   @override
-  State<GenerScreen> createState() => GenerScreenState();
+  State<GenreScreen> createState() => GenreScreenState();
 }
-class GenerScreenState extends State<GenerScreen> {
+class GenreScreenState extends State<GenreScreen> {
   var jsonList;
   bool fetchedData = false;
   late final String genreName;
@@ -72,7 +72,7 @@ class GenerScreenState extends State<GenerScreen> {
         Navigator.of(context).push(MaterialPageRoute(
 
         builder: (context) =>
-            GenerViewer(collectionName:widget.collectionName , genreName:jsonList[index]['gener'],type: widget.type,)));
+            GenreViewer(collectionName:widget.collectionName , genreName:jsonList[index]['genre'],type: widget.type,)));
               },
               child: Container(
                 child: Column(
@@ -95,7 +95,7 @@ class GenerScreenState extends State<GenerScreen> {
                         Positioned.fill(top: hi * 0.06,
                           child: Center(
                             child: Text(
-                              jsonList[index]['gener'],
+                              jsonList[index]['genre'],
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

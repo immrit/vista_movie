@@ -7,7 +7,7 @@ import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
-import 'detail_Screen.dart';
+import 'detailScreen.dart';
 class MoviesView extends StatefulWidget {
   const MoviesView({super.key});
   @override
@@ -95,15 +95,13 @@ class _MoviesViewState extends State<MoviesView> {
   void some()async {
       try {
         print("===================================================================================");
-        final pb = PocketBase('https://vvista.chbk.run');
+        final pb = PocketBase('https://vista.chbk.run');
           final resultList = await pb.collection('Series').getFullList(
               filter: 'gener ~ "action"'
-
           );
         if (!resultList.isNull) {
           print("!!! DATA FETCHED !!! =++      ${resultList}" );
           print("===================================================================================");
-
         }
       }
       catch (e) {

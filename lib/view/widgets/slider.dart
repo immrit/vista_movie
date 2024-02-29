@@ -110,8 +110,8 @@ class _SliderWidgetState extends State<SliderWidget> {
         print("fetching Slider data!!!");
         Map<String, dynamic> q = {'sort': '-updated'};
         BaseOptions options = new BaseOptions(
-            connectTimeout: Duration(milliseconds: 5000),
-            receiveTimeout: Duration(milliseconds: 5000)
+            connectTimeout: Duration(milliseconds: 20000),
+            receiveTimeout: Duration(milliseconds: 20000)
         );
         Dio dio = new Dio(options);
         var response = await dio.get(

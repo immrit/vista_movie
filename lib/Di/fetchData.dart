@@ -1,15 +1,12 @@
-  import 'dart:convert';
-  import 'package:dio/dio.dart';
-import 'package:vista_movie/Di/di.dart';
-
+import 'package:dio/dio.dart';
 import '../Models/DataModel.dart';
   class DataFetcher {
     final String cName;
     final String gName;
     late final String url;
     BaseOptions options = new BaseOptions(
-        connectTimeout: Duration(milliseconds: 8000),
-        receiveTimeout: Duration(milliseconds: 8000)
+        connectTimeout: Duration(milliseconds: 20000),
+        receiveTimeout: Duration(milliseconds: 20000)
     );
     // final List<String> categoryUrls = [
     //   'https://vista.chbk.run/api/collections/Movies/records',
@@ -34,24 +31,24 @@ import '../Models/DataModel.dart';
     ) {
       url = 'https://vista.chbk.run/api/collections/$cName/records';
     }
-    Future<List<DataModel>> fetchGener() async {
+    Future<List<DataModel>> fetchGenre() async {
     while (true) {
       await Future.delayed(Duration(seconds: 3));
       try {
         BaseOptions options = new BaseOptions(
-            connectTimeout: Duration(milliseconds: 8000),
-            receiveTimeout: Duration(milliseconds: 8000)
+            connectTimeout: Duration(milliseconds: 20000),
+            receiveTimeout: Duration(milliseconds: 20000)
         );
         Dio dio = new Dio(options);
         // dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: false, requestHeader: true));
         final response = await dio.get(
           url,
-          queryParameters: {'expand': 'gener','filter': 'gener ~ "$gName"',},
+          queryParameters: {'expand': 'genre','filter': 'genre ~ "$gName"',},
         );
         if (response.statusCode == 200) {
           List<dynamic> jsonItems = response.data['items'] as  List ;
-          List<DataModel> dataList = jsonItems.map((item) => DataModel.fromJson(item)).toList();
-          saveGenerData(dataList);
+          List<DataModel> dataList = jsonItems.map((item) => DataModel.fromMapJson(item)).toList();
+          // saveGenerData(dataList);
           return dataList;
         }
       } catch (e) {

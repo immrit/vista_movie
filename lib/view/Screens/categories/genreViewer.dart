@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/Di/fetchData.dart';
-import 'package:vista_movie/view/Screens/detail_Screen.dart';
+import 'package:vista_movie/view/Screens/detailScreen.dart';
 
 import '../../../Models/DataModel.dart';
-class GenerViewer extends StatefulWidget {
-  const GenerViewer({
+class GenreViewer extends StatefulWidget {
+  const GenreViewer({
     super.key,
     required this.genreName,
     required this.collectionName,
@@ -20,10 +20,10 @@ class GenerViewer extends StatefulWidget {
   final String collectionName;
 
   @override
-  State<GenerViewer> createState() => _GenerViewerState();
+  State<GenreViewer> createState() => _GenreViewerState();
 }
-class _GenerViewerState extends State<GenerViewer> {
-  late List<DataModel> genreData = [];
+class _GenreViewerState extends State<GenreViewer> {
+  late List<DataModel> MoviesData = [];
   late DataFetcher dataFetcher;
   bool isConnected = false;
   bool isDataFetched = false;
@@ -49,75 +49,12 @@ class _GenerViewerState extends State<GenerViewer> {
       cName: widget.collectionName,
       gName: widget.genreName,
     );
-    switch (widget.collectionName) {
-      case 'movies':
-        switch (widget.genreName) {
-          case 'drama':
-            if (DataFetcher.moviesGenerDrama.isNotEmpty) {
-              setState(() {
-                genreData = DataFetcher.moviesGenerDrama;
-                isDataFetched = true;
-              });
-              return;
-            }
-            break;
-          case 'action':
-            if (DataFetcher.moviesGenerAction.isNotEmpty) {
-              setState(() {
-                genreData = DataFetcher.moviesGenerAction;
-                isDataFetched = true;
-              });
-              return;
-            }
-            break;
-          case 'fantesy':
-            if (DataFetcher.moviesGenerFantasy.isNotEmpty) {
-              setState(() {
-                genreData = DataFetcher.moviesGenerFantasy;
-                isDataFetched = true;
-              });
-              return;
-            }
-            break;
-        }
-        break;
-      case 'series':
-        switch (widget.genreName) {
-          case 'drama':
-            if (DataFetcher.seriesGenerDrama.isNotEmpty) {
-              setState(() {
-                genreData = DataFetcher.seriesGenerDrama;
-                isDataFetched = true;
-              });
-              return;
-            }
-            break;
-          case 'action':
-            if (DataFetcher.seriesGenerAction.isNotEmpty) {
-              setState(() {
-                genreData = DataFetcher.seriesGenerAction;
-                isDataFetched = true;
-              });
-              return;
-            }
-            break;
-          case 'fantasy':
-            if (DataFetcher.seriesGenerFantasy.isNotEmpty) {
-              setState(() {
-                genreData = DataFetcher.seriesGenerFantasy;
-                isDataFetched = true;
-              });
-              return;
-            }
-            break;
-        }
-        break;
-    }
-    if (genreData.isEmpty) {
-      List<DataModel> fetchedData = await dataFetcher.fetchGener();
+  
+    if (MoviesData.isEmpty) {
+      List<DataModel> fetchedData = await dataFetcher.fetchGenre();
       if (mounted) {
         setState(() {
-          genreData = fetchedData;
+          MoviesData = fetchedData;
           isDataFetched = true;
         });
       }
@@ -138,7 +75,7 @@ class _GenerViewerState extends State<GenerViewer> {
               crossAxisSpacing: 0,
               mainAxisExtent: hi * .15),
           shrinkWrap: true,
-          itemCount: genreData == null ? 0 : genreData.length,
+          itemCount: MoviesData == null ? 0 : MoviesData.length,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -156,7 +93,7 @@ class _GenerViewerState extends State<GenerViewer> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                               image: NetworkImage(
-                                'https://vista.chbk.run/api/files/${genreData[index].collectionId}/${genreData[index].id}/${genreData[index].logo}',
+                                'https://vista.chbk.run/api/files/${MoviesData[index].collectionId}/${MoviesData[index].id}/${MoviesData[index].logo}',
                               ),
                               fit: BoxFit.cover,
                             ),
@@ -165,7 +102,7 @@ class _GenerViewerState extends State<GenerViewer> {
                         Positioned.fill(top: hi * 0.06,
                           child: Center(
                             child: Text(
-                              genreData[index].id,
+                              MoviesData[index].id,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

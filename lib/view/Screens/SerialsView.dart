@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
-import 'detail_Screen.dart';
+import 'detailScreen.dart';
 
 class SerialView extends StatefulWidget {
   const SerialView({super.key});
@@ -61,7 +61,7 @@ class _SerialViewState extends State<SerialView> {
                                 'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                             name: jsonList[index]['name'],
                             url: jsonList[index]['url'],
-                            subtitleUrl: jsonList[index]['subtitle'], geners: [],
+                            subtitleUrl: jsonList[index]['subtitle'], genre: [''],
 
                           ),
                         ));

@@ -6,7 +6,7 @@ import 'package:vista_movie/view/Screens/SerialsView.dart';
 import 'package:vista_movie/view/Screens/register_and_login.dart';
 import 'package:vista_movie/view/Screens/signup.dart';
 
-import '../Screens/categoriesScreen.dart';
+import '../Screens/categories/categoriesScreen.dart';
 
 void main() => runApp(const BottomNavigationBarExampleApp());
 class BottomNavigationBarExampleApp extends StatelessWidget {
