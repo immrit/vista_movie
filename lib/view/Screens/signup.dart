@@ -73,11 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 55,
                   child: ElevatedButton(
                     onPressed: () async {
-                      var either = await AutunticationRepository().register(
-                          _usernameController.text,
-                          _emailController.text,
-                          _passwordController.text,
-                          _confirmPasswordController.text);
+                      var either = await AutunticationRepository().register();
                       either.fold((err) {
                         print(err);
                       }, (succ) {

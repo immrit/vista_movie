@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vista_movie/view/Screens/signup.dart';
 import 'package:vista_movie/view/widgets/widgets.dart';
 
-import '../../data/repository/autuntication_repository.dart';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -56,20 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: () async{
-
-                      var either= await AutunticationRepository().login(_usernameController.text, _passwordController.text);
-
-
-                      either.fold((l) {
-                        print(l);
-                      }, (r) {
-                        print(r);
-                      }
-                      );
-
-
-                    },
+                    onPressed: () {},
                     child: Text(
                       "ورود",
                       style: TextStyle(

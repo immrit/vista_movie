@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vista_movie/view/Screens/HomePage.dart';
 
 import '../../Models/DataModel.dart';
-import 'detail_Screen.dart';
+import 'detailScreen.dart';
 
 class SerialView extends StatefulWidget {
   const SerialView({super.key});
@@ -61,8 +61,7 @@ class _SerialViewState extends State<SerialView> {
                                 'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                             name: jsonList[index]['name'],
                             url: jsonList[index]['url'],
-                            subtitleUrl: jsonList[index]['subtitle'],                         cats: jsonList[index]['expand_cats'],
-
+                            subtitleUrl: jsonList[index]['subtitle'], genre: [''],
 
                           ),
                         ));
@@ -115,7 +114,7 @@ class _SerialViewState extends State<SerialView> {
         );
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/series/records',
+            'https://vista.chbk.run/api/collections/Serials/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("series data fetched!");

@@ -2,21 +2,20 @@ import 'dart:math';
 import 'package:external_video_player_launcher/external_video_player_launcher.dart';
 import 'package:flutter/material.dart';
 import 'VideoPlayer.dart';
-
 class DetailScreen extends StatelessWidget {
   String image;
   String name;
   String url;
   String subtitleUrl;
-  String cats;
-  DetailScreen(
-      {Key? key,
-      required this.image,
-      required this.name,
-      required this.url,
-      required this.subtitleUrl,
-      required this.cats})
-      : super(key: key);
+  final List<String> genre;
+  DetailScreen({
+    Key? key,
+    required this.image,
+    required this.name,
+    required this.url,
+    required this.subtitleUrl,
+    required this.genre
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var wi = MediaQuery.of(context).size.width;
@@ -80,8 +79,8 @@ class DetailScreen extends StatelessWidget {
                               EdgeInsets.only(top: hi * .08, left: wi * .05),
                           child: Text(
                             name,
-                            // overflow: TextOverflow.ellipsis,
-                            // softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),
@@ -98,10 +97,18 @@ class DetailScreen extends StatelessWidget {
                               builder: (context) => VideoPlayerScreen(
                                 videoUrl: url,
                                 subtitleUrl: subtitleUrl,
+
                               ),
                             ));
                           },
                           child: const Icon(Icons.play_arrow),
+                          
+                          //   onPressed: () {
+                          //     ExternalVideoPlayerLauncher.launchOtherPlayer(
+                          //         url, MIME.applicationXMpegURL, {
+                          //       "title": name,
+                          //     });
+                          //   },
                         ),
                       )
                     ],
@@ -109,8 +116,26 @@ class DetailScreen extends StatelessWidget {
                 )
               ],
             ),
-            Text("cats"),
-          ])),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: genre.map((genres) {
+                return Text(
+                  genres,
+                  style: TextStyle(fontSize: 20,color: Colors.white),
+                );
+              }).toList(),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: genre.length,
+              itemBuilder: (context, index) {
+                return Text(
+                  genre[index],
+                  style: TextStyle(fontSize: 16,color: Colors.white),
+                );
+              },
+            ),
+        ])),
     );
   }
 }
