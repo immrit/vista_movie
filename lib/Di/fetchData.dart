@@ -18,12 +18,12 @@ class DataFetcher {
   // List<Map<String, dynamic>> seriesDataList = [];
   // List<Map<String, dynamic>> slidersDataList = [];
   // List<Map<String, dynamic>> categoriesDataList = [];
-  // static List<DataModel> seriesGenerAction = [];
-  // static List<DataModel> seriesGenerDrama = [];
-  // static List<DataModel> seriesGenerFantasy = [];
-  // static List<DataModel> moviesGenerAction = [];
-  // static List<DataModel> moviesGenerDrama = [];
-  // static List<DataModel> moviesGenerFantasy = [];
+  static List<DataModel> seriesGenerAction = [];
+  static List<DataModel> seriesGenerDrama = [];
+  static List<DataModel> seriesGenerFantasy = [];
+  static List<DataModel> moviesGenerAction = [];
+  static List<DataModel> moviesGenerDrama = [];
+  static List<DataModel> moviesGenerFantasy = [];
   DataFetcher({
     required this.cName,
     required this.gName,
