@@ -113,6 +113,7 @@ class DataModel {
 //   required this.url,
 //   required this.subTitle,
 //   required this.expandgenre,
+
 // });
 // factory DataModel.fromJson(Map<String, dynamic> json) {
 //   List<String> expandgenre = [];
