@@ -104,31 +104,5 @@ class DataModel {
       genre
     );
   }
-// DataModel({
-//   required this.id,
-//   required this.name,
-//   required this.logo,
-//   required this.collectionId,
-//   required this.url,
-//   required this.subTitle,
-//   required this.expandgenre,
-// });
-// factory DataModel.fromJson(Map<String, dynamic> json) {
-//   List<String> expandgenre = [];
-//   if (json['expand'] != null && json['expand']['genre'] != null) {
-//     json['expand']['genre'].forEach((genre) {
-//       expandgenre.add(genre['genre']);
-//     });
-//   }
-//   return DataModel(
-//     id: json['id'],
-//     name: json['name'],
-//     logo: json['logo'],
-//     collectionId: json['collectionId'],
-//     url: json['url'],
-//     subTitle: json['subtitle'],
-//     expandgenre: expandgenre,
-//
-//   );
-// }
+
 }

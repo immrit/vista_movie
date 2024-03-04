@@ -4,10 +4,7 @@ import '../Models/DataModel.dart';
     final String cName;
     final String gName;
     late final String url;
-    BaseOptions options = new BaseOptions(
-        connectTimeout: Duration(milliseconds: 20000),
-        receiveTimeout: Duration(milliseconds: 20000)
-    );
+
     // final List<String> categoryUrls = [
     //   'https://vista.chbk.run/api/collections/Movies/records',
     //   'https://vista.chbk.run/api/collections/Serials/records',
@@ -36,8 +33,8 @@ import '../Models/DataModel.dart';
       await Future.delayed(Duration(seconds: 3));
       try {
         BaseOptions options = new BaseOptions(
-            connectTimeout: Duration(milliseconds: 20000),
-            receiveTimeout: Duration(milliseconds: 20000)
+            // connectTimeout: Duration(milliseconds: 20000),
+            // receiveTimeout: Duration(milliseconds: 20000)
         );
         Dio dio = new Dio(options);
         // dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: false, requestHeader: true));

@@ -100,36 +100,56 @@ class _genreState extends State<ItemScroll> {
                         top: 5,
                       bottom: 5
                         ),
-                    child: Column(
+                    child:Column(
                       children: [
-                        Container(
-                          width: widget.wi * .3,
-                          height: widget.hi * .23,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://vista.chbk.run/api/files/${movieDetail[index].collectionId}/${movieDetail[index].id}/${movieDetail[index].logo}'),
-                                  fit: BoxFit.cover)),
+                        Stack(
+                          children: [
+                            Container(
+                              width: widget.wi * .3,
+                              height: widget.hi * .23,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        'https://vista.chbk.run/api/files/${movieDetail[index].collectionId}/${movieDetail[index].id}/${movieDetail[index].logo}'
+                                    ),
+                                    fit: BoxFit.cover
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.5),
+                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
+                                ),
+                                child: Text(
+                                  'IMDb 201', // Assuming `score` is the attribute containing the movie score
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-
                         Container(
                           alignment: Alignment.center,
                           width: widget.wi * .3,
                           child: Text(
                             movieDetail[index].name,
-                            // softWrap: true,
-                            overflow:TextOverflow.ellipsis ,
-
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
                     ),
+
                   ),
                 );
               },
