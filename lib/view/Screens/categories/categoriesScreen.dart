@@ -69,7 +69,9 @@ class _CategoriesScreenState extends State<CategoriesScreen>  with TickerProvide
         children: const <Widget>[
           GenreScreen(collectionName: 'moviesGenre',type: 'movies',),
           GenreScreen(collectionName: 'seriesGenre',type: 'series',),
-          Center(),
+          Center(
+            child: Text("Some"),
+          ),
           Center(
             child: Text("Some"),
           ),
