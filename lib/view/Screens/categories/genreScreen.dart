@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/view/Screens/categories/genreViewer.dart';
+
 class GenreScreen extends StatefulWidget {
-  const GenreScreen({Key? key,required this.collectionName,required this.type}) : super(key: key);
+  const GenreScreen(
+      {Key? key, required this.collectionName, required this.type})
+      : super(key: key);
   final String collectionName;
   final String type;
   @override
   State<GenreScreen> createState() => GenreScreenState();
 }
+
 class GenreScreenState extends State<GenreScreen> {
   var jsonList;
   bool fetchedData = false;
@@ -32,7 +36,7 @@ class GenreScreenState extends State<GenreScreen> {
             receiveTimeout: Duration(milliseconds: 5000));
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/${widget.collectionName}/records',
+            'http://10.0.2.2:8089/api/collections/${widget.collectionName}/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           if (mounted) {
@@ -54,7 +58,7 @@ class GenreScreenState extends State<GenreScreen> {
   Widget build(BuildContext context) {
     var wi = MediaQuery.of(context).size.width;
     var hi = MediaQuery.of(context).size.height;
-    return  Container(
+    return Container(
         width: double.infinity,
         height: double.infinity,
         padding: EdgeInsets.only(top: hi * .03),
@@ -69,10 +73,12 @@ class GenreScreenState extends State<GenreScreen> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-
-        builder: (context) =>
-            GenreViewer(collectionName:widget.collectionName , genreName:jsonList[index]['genre'],type: widget.type,)));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => GenreViewer(
+                          collectionName: widget.collectionName,
+                          genreName: jsonList[index]['genre'],
+                          type: widget.type,
+                        )));
               },
               child: Container(
                 child: Column(
@@ -86,13 +92,14 @@ class GenreScreenState extends State<GenreScreen> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                               image: NetworkImage(
-                                'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['cover']}',
+                                'http://10.0.2.2:8089/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['cover']}',
                               ),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                        Positioned.fill(top: hi * 0.06,
+                        Positioned.fill(
+                          top: hi * 0.06,
                           child: Center(
                             child: Text(
                               jsonList[index]['genre'],

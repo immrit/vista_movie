@@ -6,7 +6,7 @@ var locator = GetIt.instance;
 
 Future<void> getItInit() async {
   locator.registerSingleton<Dio>(
-      Dio(BaseOptions(baseUrl: "https://vista.chbk.run/api/")));
+      Dio(BaseOptions(baseUrl: "http://10.0.2.2:8089/api/")));
 
 //datasources
 

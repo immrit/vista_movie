@@ -28,7 +28,7 @@ class DataFetcher {
     required this.cName,
     required this.gName,
   }) {
-    url = 'https://vista.chbk.run/api/collections/$cName/records';
+    url = 'http://10.0.2.2:8089/api/collections/$cName/records';
   }
   Future<List<DataModel>> fetchGenre() async {
     while (true) {

@@ -1,16 +1,11 @@
 import 'dart:async';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pocketbase/pocketbase.dart';
 import 'package:vista_movie/Di/fetchData.dart';
 import 'package:vista_movie/view/Screens/detailScreen.dart';
-import '../../Di/di.dart';
 import '../../Models/DataModel.dart';
 
 class ItemScroll extends StatefulWidget {
-  const   ItemScroll({
+  const ItemScroll({
     super.key,
     required this.wi,
     required this.hi,
@@ -24,15 +19,17 @@ class ItemScroll extends StatefulWidget {
   @override
   State<ItemScroll> createState() => _genreState();
 }
+
 class _genreState extends State<ItemScroll> {
-    late List<DataModel> movieDetail = [];
-    late DataFetcher dataFetcher;
+  late List<DataModel> movieDetail = [];
+  late DataFetcher dataFetcher;
   bool isConnected = false;
   bool isDataFetched = false;
   @override
   void dispose() {
     super.dispose();
   }
+
   void initState() {
     super.initState();
     // Connectivity().checkConnectivity().then((result) {
@@ -62,6 +59,7 @@ class _genreState extends State<ItemScroll> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,11 +81,11 @@ class _genreState extends State<ItemScroll> {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DetailScreen(
                         image:
-                        'https://vista.chbk.run/api/files/${movieDetail[index].collectionId}/${movieDetail[index].id}/${movieDetail[index].logo}',
+                            'http://10.0.2.2:8089/api/files/${movieDetail[index].collectionId}/${movieDetail[index].id}/${movieDetail[index].logo}',
                         name: movieDetail[index].name,
                         url: movieDetail[index].url,
-                        subtitleUrl: movieDetail[index].subTitle, genre: movieDetail[index].genre
-                        ,
+                        subtitleUrl: movieDetail[index].subTitle,
+                        genre: movieDetail[index].genre,
                         // url: snapshot.data![index].url,
                       ),
                     ));
@@ -98,9 +96,8 @@ class _genreState extends State<ItemScroll> {
                         right: index == 0 ? 28 : 10,
                         left: 5,
                         top: 5,
-                      bottom: 5
-                        ),
-                    child:Column(
+                        bottom: 5),
+                    child: Column(
                       children: [
                         Stack(
                           children: [
@@ -111,10 +108,8 @@ class _genreState extends State<ItemScroll> {
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        'https://vista.chbk.run/api/files/${movieDetail[index].collectionId}/${movieDetail[index].id}/${movieDetail[index].logo}'
-                                    ),
-                                    fit: BoxFit.cover
-                                ),
+                                        'http://10.0.2.2:8089/api/files/${movieDetail[index].collectionId}/${movieDetail[index].id}/${movieDetail[index].logo}'),
+                                    fit: BoxFit.cover),
                               ),
                             ),
                             Positioned(
@@ -124,7 +119,8 @@ class _genreState extends State<ItemScroll> {
                                 padding: EdgeInsets.all(4),
                                 decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(0.5),
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10)),
                                 ),
                                 child: Text(
                                   'IMDb 201', // Assuming `score` is the attribute containing the movie score
@@ -149,7 +145,6 @@ class _genreState extends State<ItemScroll> {
                         ),
                       ],
                     ),
-
                   ),
                 );
               },

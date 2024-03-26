@@ -74,7 +74,7 @@ class _MoviesViewState extends State<MoviesView> {
                                       borderRadius: BorderRadius.circular(10),
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
+                                              'http://10.0.2.2:8089/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
                                           fit: BoxFit.cover)),
                                 ),
                                 Text(
@@ -82,7 +82,8 @@ class _MoviesViewState extends State<MoviesView> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15),
+
+overflow:TextOverflow.ellipsis ,                                      fontSize: 15),
                                 )
                               ],
                             ),
@@ -102,7 +103,7 @@ class _MoviesViewState extends State<MoviesView> {
     try {
       print(
           "===================================================================================");
-      final pb = PocketBase('https://vista.chbk.run');
+      final pb = PocketBase('http://10.0.2.2:8089');
       final resultList =
           await pb.collection('Series').getFullList(filter: 'gener ~ "action"');
       if (!resultList.isNull) {
@@ -128,7 +129,7 @@ class _MoviesViewState extends State<MoviesView> {
             receiveTimeout: Duration(milliseconds: 5000));
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Movies/records',
+            'http://10.0.2.2:8089/api/collections/Movies/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           // print("movie data fetched! ${response.data['items']}" );

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:vista_movie/Di/di.dart';
 import '../../Models/DataModel.dart';
 
 class SliderWidget extends StatefulWidget {
@@ -30,6 +31,7 @@ class _SliderWidgetState extends State<SliderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Dio url=locator.get();
     final controller = PageController(viewportFraction: 0.88, keepPage: true);
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -58,7 +60,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                       height: double.infinity,
                                       width: double.infinity,
                                       child: Image.network(
-                                        'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
+                                        'http://10.0.2.2:8089/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -115,7 +117,7 @@ class _SliderWidgetState extends State<SliderWidget> {
         );
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/sliders/records',
+            'http://10.0.2.2:8089/api/collections/sliders/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("Slider data fetched!");

@@ -16,7 +16,6 @@ class _SerialViewState extends State<SerialView> {
   var jsonList;
   bool fetchedData = false;
 
-
   @override
   void initState() {
     super.initState();
@@ -58,11 +57,11 @@ class _SerialViewState extends State<SerialView> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailScreen(
                             image:
-                                'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
+                                'http://10.0.2.2:8089/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}',
                             name: jsonList[index]['name'],
                             url: jsonList[index]['url'],
-                            subtitleUrl: jsonList[index]['subtitle'], genre: [''],
-
+                            subtitleUrl: jsonList[index]['subtitle'],
+                            genre: [''],
                           ),
                         ));
                       },
@@ -76,7 +75,7 @@ class _SerialViewState extends State<SerialView> {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://vista.chbk.run/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
+                                          'http://10.0.2.2:8089/api/files/${jsonList[index]['collectionId']}/${jsonList[index]['id']}/${jsonList[index]['logo']}'),
                                       fit: BoxFit.cover)),
                             ),
                             Text(
@@ -103,18 +102,17 @@ class _SerialViewState extends State<SerialView> {
   }
 
   Future<void> fetchSeries() async {
-    while (!fetchedData){
+    while (!fetchedData) {
       await Future.delayed(Duration(seconds: 3));
       try {
         print("fetching series data!!!");
         Map<String, dynamic> q = {'sort': '-updated'};
         BaseOptions options = new BaseOptions(
             connectTimeout: Duration(milliseconds: 5000),
-            receiveTimeout: Duration(milliseconds: 5000)
-        );
+            receiveTimeout: Duration(milliseconds: 5000));
         Dio dio = new Dio(options);
         var response = await dio.get(
-            'https://vista.chbk.run/api/collections/Serials/records',
+            'http://10.0.2.2:8089/api/collections/Serials/records',
             queryParameters: q);
         if (response.statusCode == 200) {
           print("series data fetched!");
@@ -127,8 +125,7 @@ class _SerialViewState extends State<SerialView> {
           break;
         }
         continue;
-      }
-      catch (e) {
+      } catch (e) {
         print(e);
       }
     }
