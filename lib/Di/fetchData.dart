@@ -8,22 +8,7 @@ class DataFetcher {
   BaseOptions options = new BaseOptions(
       connectTimeout: Duration(milliseconds: 20000),
       receiveTimeout: Duration(milliseconds: 20000));
-  // final List<String> categoryUrls = [
-  //   'https://vista.chbk.run/api/collections/Movies/records',
-  //   'https://vista.chbk.run/api/collections/Serials/records',
-  //   'https://vista.chbk.run/api/collections/Slider/records',
-  //   'https://vista.chbk.run/api/collections/categories/records',
-  // ];
-  // List<Map<String, dynamic>> moviesDataList = [];
-  // List<Map<String, dynamic>> seriesDataList = [];
-  // List<Map<String, dynamic>> slidersDataList = [];
-  // List<Map<String, dynamic>> categoriesDataList = [];
-  static List<DataModel> seriesGenerAction = [];
-  static List<DataModel> seriesGenerDrama = [];
-  static List<DataModel> seriesGenerFantasy = [];
-  static List<DataModel> moviesGenerAction = [];
-  static List<DataModel> moviesGenerDrama = [];
-  static List<DataModel> moviesGenerFantasy = [];
+
   DataFetcher({
     required this.cName,
     required this.gName,
@@ -59,31 +44,4 @@ class DataFetcher {
       return [];
     }
   }
-  // saveGenerData(List<dynamic> data) async {
-  //   if (cName == 'series') {
-  //     switch (gName) {
-  //       case 'drama':
-  //         seriesGenerDrama = List<DataModel>.from(data);
-  //         break;
-  //       case 'action':
-  //         seriesGenerAction = List<DataModel>.from(data);
-  //         break;
-  //       case 'fantasy':
-  //         seriesGenerFantasy = List<DataModel>.from(data);
-  //         break;
-  //     }
-  //   } else if (cName == 'movies') {
-  //     switch (gName) {
-  //       case 'drama':
-  //         moviesGenerDrama = List<DataModel>.from(data);
-  //         break;
-  //       case 'action':
-  //         moviesGenerAction = List<DataModel>.from(data);
-  //         break;
-  //       case 'fantasy':
-  //         moviesGenerFantasy = List<DataModel>.from(data);
-  //         break;
-  //     }
-  //   }
-  // }
 }
