@@ -4,13 +4,19 @@ import 'package:vista_movie/util/api_exeption.dart';
 
 import '../datasource/auth_datasource.dart';
 
-class AutunticationRepository {
+abstract class IAuthRepository {
+  Future<Either<String, String>> register(
+      String username, String password, String passwordConfirm, String email);
+}
+
+class AutunticationRepository extends IAuthRepository {
   final IAuthanticationDataSource _datasource = locator.get();
 
-  Future<Either<String, String>> register() async {
+  @override
+  Future<Either<String, String>> register(String username, String password,
+      String passwordConfirm, String email) async {
     try {
-      await _datasource.register(
-          'username', 'password', 'password', 'email@g.co');
+      await _datasource.register(username, password, passwordConfirm, email);
       return right('ثبت نام انجام شد!');
     } on ApiExeption catch (e) {
       return left(e.message ?? "خطا محتوا در دسترس نیست");

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vista_movie/data/datasource/auth_datasource.dart';
+import 'package:vista_movie/data/repository/autuntication_repository.dart';
 
 var locator = GetIt.instance;
 
@@ -12,4 +13,8 @@ Future<void> getItInit() async {
 
   locator
       .registerFactory<IAuthanticationDataSource>(() => AuthenticationRemote());
+
+//repository
+
+  locator.registerFactory<IAuthRepository>(() => AutunticationRepository()); //
 }

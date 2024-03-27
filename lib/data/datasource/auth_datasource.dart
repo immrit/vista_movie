@@ -16,9 +16,9 @@ class AuthenticationRemote implements IAuthanticationDataSource {
     try {
       final response = await _dio.post('collections/users/records', data: {
         'username': username,
-        'email': email,
         'password': password,
         'passwordConfirm': passwordConfirm,
+        'email': email,
       });
 
       print('${response.statusCode}');

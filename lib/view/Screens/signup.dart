@@ -73,17 +73,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 55,
                   child: ElevatedButton(
                     onPressed: () async {
-                      var either = await AutunticationRepository().register();
+                      var either = await AutunticationRepository().register(
+                          _usernameController.text,
+                          _passwordController.text,
+                          _confirmPasswordController.text,
+                          _emailController.text);
                       either.fold((err) {
                         print(err);
                       }, (succ) {
                         print('succ');
                       });
-                      // AuthenticationRemote().register(
-                      //     _usernameController.text,
-                      //     _passwordController.text,
-                      //     _confirmPasswordController.text,
-                      //     _emailController.text);
                     },
                     child: Text(
                       "ثبت نام",
